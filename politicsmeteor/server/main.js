@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Random } from 'meteor/random';
-import  {'../imports/collections/deputies.js';
+import  {Deputies} from {'../imports/collections/deputies.js';
 
 Meteor.startup(() => {
 
@@ -10,7 +10,7 @@ Meteor.startup(() => {
     console.log('Seeding DB with ${deputyList.deputies_list.length} documents');
 
     const DeputiesRaw = Deputies.rawCollection();
-    const bulkDeputiesOp= DeputiesRaw.initializeUnorderBulkOp();
+    const bulkDeputiesOp= DeputiesRaw.initializeUnorderedBulkOp();
     bulkDeputiesOp.executeSync = Meteor.wrapAsync(bulkDeputiesOp.execute);
 
     deputyList.deputies_list.forEach((deputy)=>{
