@@ -9,8 +9,9 @@ class Deputies_List extends Component{
     const {deputies}= this.props;
 
     return(
+      <Text>testing</Text>
       <View>
-          {this.props.deputies.map(deputy=><DeputyDetail deputy={deputy} key={deputy._id}/>)}
+           {this.props.deputies.map(deputy=><DeputyDetail deputy={deputy.depute} key={deputy._id}/>)}
       </View>
       );
   }
@@ -18,6 +19,7 @@ class Deputies_List extends Component{
 
 
 export default createContainer(params=>{
+
   return{
     deputies: Meteor.collection('deputies').find({}),
   };

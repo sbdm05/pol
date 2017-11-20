@@ -1,11 +1,15 @@
 import { Meteor } from 'meteor/meteor';
 import { Random } from 'meteor/random';
-import  {Deputies} from {'../imports/collections/deputies.js';
+import  {Deputies} from '../imports/collections/deputies.js';
 
 Meteor.startup(() => {
+console.log("log here")
+console.log(Deputies.find().count())
+  if (Deputies.find().count() ===0){
 
-  if (Deputies.find().count ===0){
     const deputyList = JSON.parse(Assets.getText('deputies_list.json'));
+
+    console.log(Object.keys(deputyList), "deputylist")
 
     console.log('Seeding DB with ${deputyList.deputies_list.length} documents');
 
@@ -13,7 +17,8 @@ Meteor.startup(() => {
     const bulkDeputiesOp= DeputiesRaw.initializeUnorderedBulkOp();
     bulkDeputiesOp.executeSync = Meteor.wrapAsync(bulkDeputiesOp.execute);
 
-    deputyList.deputies_list.forEach((deputy)=>{
+    deputyList.deputes.forEach((deputy)=>{
+      console.log(...deputy, "spread deputy")
       bulkDeputiesOp.insert({
         _id: Random.id(),
         ...deputy,
@@ -22,6 +27,4 @@ Meteor.startup(() => {
     bulkDeputiesOp.executeSync();
 
   }
-
-
 });

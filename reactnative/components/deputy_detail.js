@@ -9,7 +9,7 @@ const DeputyDetail =({deputy})=>{
   const{name} = deputy;
 
   return(
-    <Text>Nom : {name}</Text>
+    <Text>Nom : {nom}</Text>
     );
 
 }
