@@ -10,12 +10,13 @@ class Deputies_List extends Component{
 
   render(){
     const {deputies}= this.props;
+    console.log('test from depty list')
 
     return(
 
       <View>
-      <Text>testing</Text>
 
+      <Text>Testing</Text>
            {this.props.deputies.map(deputy=><DeputyDetail deputy={deputy.depute} key={deputy._id}/>)}
 
       </View>
@@ -31,6 +32,7 @@ export default createContainer(params=>{
   return{
     deputies: handle.ready(),
     deputies: Meteor.collection('deputies').find({}),
+
   };
 },Deputies_List)
 
