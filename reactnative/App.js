@@ -6,10 +6,16 @@ import DeputyDetail from './components/deputy_detail';
 import Tabs from './config/routes';
 
 
-Meteor.connect('ws:localhost127.0.0.1:3001/websocket');
 
 
 export default class App extends React.Component {
+
+   componentWillMount() {
+    Meteor.connect('ws://localhost:3000/websocket');
+  }
+
+
+
   render() {
     return (
       <View style={styles.container}>
