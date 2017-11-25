@@ -13,10 +13,10 @@ import {
 
 class Deputies_List extends Component{
 
-   static navigationOptions = {
-    title: 'Liste des Députés',
-    TabBarLabel: 'Liste',
-    };
+
+   static navigationOptions = ({ navigation }) => ({
+    title:'Liste des députés',
+  });
 
    render(){
     const {deputies}= this.props; // the list is here

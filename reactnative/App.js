@@ -13,14 +13,16 @@ import {
 export default class App extends React.Component {
 
 
+
    componentWillMount() {
     Meteor.connect('ws://localhost:3000/websocket');
   }
 
 
   render() {
+
     return (
-<Tabs />
+      <Tabs />
     );
   }
 }

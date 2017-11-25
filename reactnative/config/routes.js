@@ -1,5 +1,5 @@
 import React , {Component}from 'react';
-import {TabNavigator} from 'react-navigation';
+import {TabNavigator, StackNavigator} from 'react-navigation';
 import { StyleSheet, Text, View } from 'react-native';
 import Deputies_List from '../components/deputies_list';
 import DeputyDetail from '../components/deputy_detail';
@@ -15,7 +15,9 @@ class Tabs extends React.Component{
         Spinner:{screen: Spinner},
       },{
       initialRouteName: 'Home',
-    });
+      });
+
+
 
     return(
 
