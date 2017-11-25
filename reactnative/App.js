@@ -4,11 +4,14 @@ import Meteor from 'react-native-meteor';
 import Deputies_List from './components/deputies_list';
 import DeputyDetail from './components/deputy_detail';
 import Tabs from './config/routes';
-
+import {
+  TabNavigator
+} from 'react-navigation';
 
 
 
 export default class App extends React.Component {
+
 
    componentWillMount() {
     Meteor.connect('ws://localhost:3000/websocket');
@@ -17,9 +20,12 @@ export default class App extends React.Component {
 
 
   render() {
+    const { navigate } = this.props.navigation;
+
     return (
       <View style={styles.container}>
-        <Deputies_List/>
+        <Tabs />
+        console.log('test');
       </View>
     );
   }

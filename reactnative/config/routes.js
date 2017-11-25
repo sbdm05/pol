@@ -1,15 +1,18 @@
 import React from 'react';
-import {StackNavigator, TabNavigator, TabBarBottom} from 'react-navigation';
+import {TabNavigator} from 'react-navigation';
+import Deputies_List from '../components/deputies_list';
+import DeputyDetail from '../components/deputy_detail';
+import App from '../App';
 
-import DeputyList from '../components/deputies_list';
 
+const Tabs = TabNavigator({
 
-export const Tabs = TabNavigator({
   Home:{
-    screen: DeputyList,
-    navigationOptions:{
-      tabBarLabel:'Accueil',
-    },
-  },
+    screen: Deputies_List,
+  }
+}, {
+  initialRouteName:Deputies_List
+});
 
-})
+
+export default Tabs;
