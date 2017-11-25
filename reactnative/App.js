@@ -18,15 +18,9 @@ export default class App extends React.Component {
   }
 
 
-
   render() {
-    const { navigate } = this.props.navigation;
-
     return (
-      <View style={styles.container}>
-        <Tabs />
-        console.log('test');
-      </View>
+<Tabs />
     );
   }
 }

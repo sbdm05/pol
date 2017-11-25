@@ -1,18 +1,28 @@
-import React from 'react';
+import React , {Component}from 'react';
 import {TabNavigator} from 'react-navigation';
+import { StyleSheet, Text, View } from 'react-native';
 import Deputies_List from '../components/deputies_list';
 import DeputyDetail from '../components/deputy_detail';
+import Spinner from '../components/spinner';
 import App from '../App';
 
 
-const Tabs = TabNavigator({
+class Tabs extends React.Component{
 
-  Home:{
-    screen: Deputies_List,
+    render(){
+      const Tabs = TabNavigator({
+        Home: {screen: Deputies_List},
+        Spinner:{screen: Spinner},
+      },{
+      initialRouteName: 'Home',
+    });
+
+    return(
+
+        <Tabs/>
+
+      );
   }
-}, {
-  initialRouteName:Deputies_List
-});
-
+}
 
 export default Tabs;
