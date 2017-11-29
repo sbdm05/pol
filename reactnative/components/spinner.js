@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import { View, ActivityIndicator, Text } from 'react-native';
 
 class Spinner extends Component {
+  static navigationOptions = {
+    headerTitle: 'AppPolitic'
+  };
 
   render() {
+    const { navigate } = this.props.navigation;
     return (
       <View>
         <ActivityIndicator size={'large'} />
