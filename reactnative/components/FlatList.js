@@ -12,28 +12,20 @@ import {
 
 
 
-class Deputies_List extends Component{
-
-  _onPressDeputy(){
-  console.log('test')
-  }
-
+class Flat_List extends Component{
 
    render(){
     const {deputies}= this.props; // the list is here
     const { navigate } = this.props.navigation;
 
-
     return(
-
-       <View style={{flex: 1}}>
-          <TouchableHighlight  onPress = {this._onPressDeputy} >
-              <ScrollView>
-                {this.props.deputies.map(deputy=><DeputyDetail deputy={deputy.depute} key={deputy._id}/>)}
-              </ScrollView>
-          </TouchableHighlight>
-        </View>
-
+        <FlatList
+          data={this.props.deputies}
+          keyExtractor={(deputy)=> deputy._id}
+          renderItem={({deputy})=>(
+             <DeputyDetail deputy={deputy}/>
+            )}
+        />
 
     );
   }
@@ -42,9 +34,8 @@ class Deputies_List extends Component{
 
 export default createContainer(params=>{
   Meteor.subscribe('deputies');
-
   return{
     deputies: Meteor.collection('deputies').find(),
 };
-},Deputies_List);
+},Flat_List);
 

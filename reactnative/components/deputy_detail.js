@@ -17,6 +17,7 @@ const DeputyDetail =({deputy})=>{
         <View>
           <Card>
             <Text>{nom}, {groupe_sigle}</Text>
+
           </Card>
         </View>
 

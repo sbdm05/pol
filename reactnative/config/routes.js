@@ -7,14 +7,15 @@ import Spinner from '../components/spinner';
 
 
 
-class Tabs extends React.Component{
+class StackComponent extends React.Component{
 
     render(){
       const MainStack = StackNavigator({
-        Home: {screen: Spinner},
-        Spinner:{screen: Deputies_List},
+        Home: {screen: Deputies_List , navigationOptions: {title: 'liste'}},
+        Test:{screen: Spinner, navigationOptions: {title: 'test'} },
+
       },{
-      initialRouteName: 'Spinner',
+      initialRouteName: 'Home',
       });
 
 
@@ -27,4 +28,4 @@ class Tabs extends React.Component{
   }
 }
 
-export default Tabs;
+export default StackComponent;

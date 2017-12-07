@@ -3,8 +3,9 @@ import { StyleSheet, Text, View } from 'react-native';
 import Meteor from 'react-native-meteor';
 import Deputies_List from './components/deputies_list';
 import DeputyDetail from './components/deputy_detail';
+import Flat_List from './components/FlatList';
 import Spinner from './components/spinner';
-import MainStack from './config/routes';
+import StackComponent from './config/routes';
 import {
   TabNavigator
 } from 'react-navigation';
@@ -21,8 +22,9 @@ export default class App extends React.Component {
 
   render() {
     const Tabs = TabNavigator({
-    Stack: {screen: MainStack},
-    Spinner:{screen: Spinner},
+    List: {screen: StackComponent},
+    Spinner:{screen: Spinner, navigationOptions: {title: 'spinner'}},
+    FlatList: {screen: Spinner, navigationOptions:{title: 'flatlist'}},
     });
 
     return (
