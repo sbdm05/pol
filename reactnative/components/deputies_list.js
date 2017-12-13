@@ -14,9 +14,7 @@ import {
 
 class Deputies_List extends Component{
 
-  _onPressDeputy(){
-  console.log('test')
-  }
+
 
 
    render(){
@@ -27,7 +25,7 @@ class Deputies_List extends Component{
     return(
 
        <View style={{flex: 1}}>
-          <TouchableHighlight  onPress = {this._onPressDeputy} >
+          <TouchableHighlight>
               <ScrollView>
                 {this.props.deputies.map(deputy=><DeputyDetail deputy={deputy.depute} key={deputy._id}/>)}
               </ScrollView>

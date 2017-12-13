@@ -1,5 +1,5 @@
 import React , {Component}from 'react';
-import { StyleSheet, Text, View, ScrollView, FlatList, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, FlatList, TouchableHighlight, SearchBar } from 'react-native';
 import Meteor, {createContainer, MeteorListView} from 'react-native-meteor';
 import { List, ListItem} from 'react-native-elements';
 import DeputyDetail from './deputy_detail';
@@ -14,19 +14,23 @@ import {
 
 class Flat_List extends Component{
 
+
    render(){
     const {deputies}= this.props; // the list is here
     const { navigate } = this.props.navigation;
 
+
+
     return(
+      <List>
         <FlatList
           data={this.props.deputies}
-          keyExtractor={(deputy)=> deputy._id}
-          renderItem={({deputy})=>(
-             <DeputyDetail deputy={deputy}/>
+          keyExtractor={(item)=> item._id}
+          renderItem={({item})=>(
+             <DeputyDetail deputy={item.depute}/>
             )}
         />
-
+      </List>
     );
   }
 }

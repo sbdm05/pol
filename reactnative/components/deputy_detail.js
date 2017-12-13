@@ -11,16 +11,14 @@ const DeputyDetail =({deputy})=>{
   const{nom, groupe_sigle} = deputy;
 
 
+
   return(
 
-
-        <View>
-          <Card>
-            <Text>{nom}, {groupe_sigle}</Text>
-
-          </Card>
-        </View>
-
+        <ListItem
+            title={nom}
+            subtitle={groupe_sigle}
+            containerStyle={{ borderBottomWidth: 0.5 }}
+          />
 
     );
   }
