@@ -13,22 +13,22 @@ import {
 
 //this component render one particular row in the list
 
-class DeputyDetail extends Component {
+const DeputyDetail =({deputy, navigation})=>{
 
-  render () {
-    const {nom, groupe_sigle, nom_circo} = this.props.deputy;
-    const navigation = this.props.navigation;
 
-    return(
+  const {nom, groupe_sigle} = deputy;
+
+
+
+  return(
 
         <ListItem
             title={nom}
-            subtitle={nom_circo}
+            subtitle={groupe_sigle}
             containerStyle={{ borderBottomWidth: 0.5 }}
-            onPress={()=> navigation.navigate('DeputyProfile', {...this.props.deputy})} />
-    )
-  }
-}
+            onPress={()=> navigation.navigate('DeputyProfile', {...deputy})} />
+)}
 export default DeputyDetail;
 
-
+dinesh@nanoapps.co
+skype: dineshswamy.sleeplessworks

@@ -14,7 +14,7 @@ class StackComponent extends React.Component{
     render(){
       const MainStack = StackNavigator({
         Home: {screen: Flat_List , navigationOptions: {title: 'flatlist'}},
-        DeputyProfile:{screen: Spinner, navigationOptions: {title: 'test'} },
+        DeputyProfile:{screen: DeputyProfile, navigationOptions: {title: 'test'} },
 
       },{
       initialRouteName: 'Home',

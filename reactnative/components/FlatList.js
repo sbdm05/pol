@@ -1,38 +1,65 @@
 import React , {Component}from 'react';
-import { StyleSheet, Text, View, ScrollView, FlatList, TouchableHighlight, SearchBar } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, FlatList, TouchableHighlight } from 'react-native';
 import Meteor, {createContainer, MeteorListView} from 'react-native-meteor';
 import { List, ListItem} from 'react-native-elements';
 import DeputyDetail from './deputy_detail';
 import DeputyProfile from './deputy_profile';
+import SearchBar from 'react-native-searchbar'
 import Tabs from '../config/routes.js';
 import {
   StackNavigator,
   TabNavigator
 } from 'react-navigation';
 
-
+//This component renders the full list of deputies
 
 class Flat_List extends Component{
 
 
+  constructor(props){
+    super(props);
+    this._handleResults = this._handleResults.bind(this);
+    this.state={
+      data : []
+    }
+  }
+
+
+    _handleResults(results){
+    console.log('test')
+  }
+
    render(){
     const {deputies}= this.props; // the list is here
-    const { navigate } = this.props.navigation;
-
 
 
     return(
+    <View>
+
+      <SearchBar
+        ref={(ref) => this.searchBar = ref}
+        data={deputies}
+        handleResults={this._handleResults.bind(this)}
+        showOnLoad
+        allDataOnEmptySearch
+        hideBack
+        autoCorrect= {false}
+      />
+
       <List>
         <FlatList
           data={this.props.deputies}
           keyExtractor={(item)=> item._id}
           renderItem={({item})=>(
-             <DeputyDetail deputy={item.depute}/>
-            )}
-        />
+             <DeputyDetail deputy={item.depute} navigation={this.props.navigation} /> )} />
       </List>
+
+    </View>
     );
   }
+
+
+
 }
 
 
