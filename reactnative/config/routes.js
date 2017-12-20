@@ -11,10 +11,12 @@ import Spinner from '../components/spinner';
 
 class StackComponent extends React.Component{
 
+
     render(){
+
       const MainStack = StackNavigator({
-        Home: {screen: Flat_List , navigationOptions: {title: 'flatlist'}},
-        DeputyProfile:{screen: DeputyProfile, navigationOptions: {title: 'test'} },
+        Home: {screen: Flat_List , navigationOptions: {title: 'Choisissez votre député'}},
+        DeputyProfile:{screen: DeputyProfile, navigationOptions: {title: 'Profile'}},
 
       },{
       initialRouteName: 'Home',

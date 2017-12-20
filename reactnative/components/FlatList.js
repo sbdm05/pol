@@ -15,40 +15,42 @@ import {
 
 class Flat_List extends Component{
 
-
   constructor(props){
     super(props);
+    console.log(props)
     this._handleResults = this._handleResults.bind(this);
-    this.state={
-      data : []
+    this.state = {
+      data : null
     }
   }
 
 
-    _handleResults(results){
-    console.log('test')
+  _handleResults(results){
+    console.log('handle results')
+    this.setState({data: results})
   }
 
-   render(){
-    const {deputies}= this.props; // the list is here
-
-
+   render() {
+    let listitems = this.state.data
+    if (this.state.data == null)  {
+      listitems = this.props.deputies
+    }
     return(
     <View>
 
       <SearchBar
         ref={(ref) => this.searchBar = ref}
-        data={deputies}
-        handleResults={this._handleResults.bind(this)}
-        showOnLoad
-        allDataOnEmptySearch
+        data={this.props.deputies}
+        handleResults={this._handleResults}
+        allDataOnEmptySearch = {true}
+        showOnLoad = {true}
         hideBack
         autoCorrect= {false}
       />
 
       <List>
         <FlatList
-          data={this.props.deputies}
+          data={listitems}
           keyExtractor={(item)=> item._id}
           renderItem={({item})=>(
              <DeputyDetail deputy={item.depute} navigation={this.props.navigation} /> )} />
@@ -69,4 +71,3 @@ export default createContainer(params=>{
     deputies: Meteor.collection('deputies').find(),
 };
 },Flat_List);
-

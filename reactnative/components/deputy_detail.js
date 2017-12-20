@@ -16,12 +16,14 @@ import {
 class DeputyDetail extends Component {
 
   render () {
-    const {nom, groupe_sigle, nom_circo} = this.props.deputy;
+    const {nom, groupe_sigle, nom_circo, picture} = this.props.deputy;
     const navigation = this.props.navigation;
 
     return(
 
         <ListItem
+            roundAvatar
+            avatar={{uri: picture}}
             title={nom}
             subtitle={nom_circo}
             containerStyle={{ borderBottomWidth: 0.5 }}
