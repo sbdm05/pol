@@ -16,7 +16,7 @@ export default class App extends React.Component {
 
 
    componentWillMount() {
-    Meteor.connect('ws://localhost:3001/websocket');
+    Meteor.connect('ws://localhost:3000/websocket');
   }
 
 

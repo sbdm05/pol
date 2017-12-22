@@ -1,5 +1,5 @@
 import React , {Component}from 'react';
-import { StyleSheet, Text, View, ScrollView, FlatList, TouchableHighlight, Image, WebView, Linking } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, FlatList, TouchableHighlight, Image, WebView, Linking, ListView } from 'react-native';
 import Meteor, {createContainer, MeteorListView} from 'react-native-meteor';
 import { List, ListItem, Card, SocialIcon, Button} from 'react-native-elements';
 import DeputyDetail from './deputy_detail';
@@ -28,13 +28,15 @@ class DeputyProfile extends Component {
     }
     _OnPressMailto(emails){
       console.log(emails[0].email)
-      const email = emails[0].email
-      Linking.openURL("mailto: email")
+      const address = emails[0].email
+      Linking.openURL('mailto:@address')
     }
+
+
 
     render(){
 
-        const{nom, emails, picture, url_an, groupe_sigle, profession, nom_circo, twitter, sites_web} = this.props.navigation.state.params;
+        const{nom, emails, picture, url_an, groupe_sigle, profession, nom_circo, twitter, sites_web, collaborateurs} = this.props.navigation.state.params;
 
         return(
           <View>
@@ -56,10 +58,22 @@ class DeputyProfile extends Component {
                 onPress={()=>this._OnPressFacebook(sites_web)}
                 />
                 <Button
-                title="Envoyer un message"
+                title="Lui envoyer un message"
                 onPress={()=>this._OnPressMailto(emails)}
                 />
+                <Text>Collaborateurs</Text>
+                <Text>{collaborateurs[0].collaborateur}</Text>
+                <Text>{collaborateurs[1].collaborateur}</Text>
                 <Text>{emails[0].email}</Text>
+
+                   <ListView>
+                      <View>
+                       {collaborateurs.map((obj, index) => {
+                            return <Text key={index}>{obj.collaborateur}</Text>;
+                        })}
+                      </View>
+                   </ListView>
+
               </Card>
             </View>
 

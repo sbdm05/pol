@@ -24,7 +24,6 @@ class Flat_List extends Component{
     }
   }
 
-
   _handleResults(results){
     console.log('handle results')
     this.setState({data: results})
@@ -49,7 +48,7 @@ class Flat_List extends Component{
       />
 
       <List>
-        <FlatList
+        <FlatList style={styles.flatListStyle}
           data={listitems}
           keyExtractor={(item)=> item._id}
           renderItem={({item})=>(
@@ -59,10 +58,14 @@ class Flat_List extends Component{
     </View>
     );
   }
-
-
-
 }
+
+const styles={
+  flatListStyle:{
+    marginTop: 50
+  }
+}
+
 
 
 export default createContainer(params=>{
