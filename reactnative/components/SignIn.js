@@ -1,66 +1,76 @@
+import PropTypes from 'prop-types';
 import React , {Component}from 'react';
 import { StyleSheet, Text, View,TouchableOpacity, TextInput, Dimensions } from 'react-native';
-const { width } = Dimensions.get('window');
+import { NavigationActions } from 'react-navigation';
 import Meteor, { Accounts } from 'react-native-meteor';
 import SignOut from './SignOut';
 
 
+const { width } = Dimensions.get('window');
+
 class SignIn extends Component {
 
-  constructor(props){
-    super(props);
-    this.state={
-      email:'',
-      password:'',
-      error: null,
+    static navigationOptions = {
+      tabBarVisible: false //not working
     };
-  }
 
-  isValid() {
-    const { email, password } = this.state;
-    let valid = false;
-
-    if (email.length > 0 && password.length > 0) {
-      valid = true;
+    constructor(props){
+      super(props);
+      this.state={
+        email:'',
+        password:'',
+        error: null,
+        loading: false,
+      };
     }
 
-    if (email.length === 0) {
-      this.setState({ error: 'You must enter an email address' });
-    } else if (password.length === 0) {
-      this.setState({ error: 'You must enter a password' });
+
+    isValid() {
+      const { email, password } = this.state;
+      let valid = false;
+
+      if (email.length > 0 && password.length > 0) {
+        valid = true;
+      }
+
+      if (email.length === 0) {
+        this.setState({ error: 'You must enter an email address' });
+      } else if (password.length === 0) {
+        this.setState({ error: 'You must enter a password' });
+      }
+      return valid;
     }
 
-    return valid;
-  }
 
+   onSignIn() {
+      const { email, password } = this.state;
 
- onSignIn() {
-    const { email, password } = this.state;
-    console.log(email, password)
-    if (this.isValid()) {
-      Meteor.loginWithPassword(email, password, (error) => {
-        if (error) {
-          this.setState({ error: error.reason });
-        }
-      });
+      const {navigate} = this.props.navigation;
+
+       Meteor.loginWithPassword(email, password, (error) => {
+          if (error) {
+            this.setState({ error: error.reason });
+            console.log(error, 'erreur dans le sign in')//it works
+          }else{
+           console.log(email, 'signed in') //it works
+          }
+        });
     }
-  }
 
-  onCreateAccount() {
-    const { email, password } = this.state;
-    console.log('test depuis createAccount')
-    if (this.isValid()) {
-      Accounts.createUser({ email, password }, (error) => {
-        if (error) {
-          this.setState({ error: error.reason });
-          this.setState({name:''})
-        } else {
-          this.setState({name:''})
-          this.onSignIn(); // temp hack that you might need to use
-        }
-      });
-    }
-  }
+    onCreateAccount() {
+      const { email, password } = this.state;
+
+
+      if (this.isValid()) {
+        Accounts.createUser({ email, password }, (error) => {
+          if (error) {
+            this.setState({ error: error.reason })
+          } else {
+            this.setState({email:''})
+          };
+        });
+       }
+      }
 
 
 render() {

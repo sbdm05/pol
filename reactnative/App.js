@@ -7,8 +7,8 @@ import Flat_List from './components/FlatList';
 import Spinner from './components/spinner';
 import StackComponent from './config/routes';
 import {
-  TabNavigator, StackNavigator
-} from 'react-navigation';
+  TabNavigator, addNavigationHelpers }
+from 'react-navigation';
 
 
 
@@ -24,8 +24,8 @@ export default class App extends React.Component {
     const Tabs = TabNavigator({
     List: {screen: StackComponent},
     Spinner:{screen: Spinner, navigationOptions: {title: 'spinner'}},
-    FlatList: {screen: Flat_List, navigationOptions:{title: 'flatlist'}},
-    });
+    FlatList: {screen: Flat_List, navigationOptions:{title: 'flatlist'}}
+  }); //do these work?yes you can test
 
     return (
       <Tabs />
@@ -41,3 +41,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+

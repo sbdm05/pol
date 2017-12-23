@@ -1,7 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import { Random } from 'meteor/random';
 import  {Deputies} from '../imports/collections/deputies.js';
-import './publications'
+import './publications';
+
 
 
 Meteor.startup(() => {

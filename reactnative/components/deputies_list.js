@@ -19,7 +19,7 @@ class Deputies_List extends Component{
 
    render(){
     const {deputies}= this.props; // the list is here
-    const { navigate } = this.props.navigation;
+    const { navigate } = this.props.navigation; // this works?yes
 
 
     return(

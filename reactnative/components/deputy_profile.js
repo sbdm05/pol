@@ -4,10 +4,7 @@ import Meteor, {createContainer, MeteorListView} from 'react-native-meteor';
 import { List, ListItem, Card, SocialIcon, Button} from 'react-native-elements';
 import DeputyDetail from './deputy_detail';
 import Tabs from '../config/routes.js';
-import {
-  StackNavigator,
-  TabNavigator
-} from 'react-navigation';
+
 
 //this component renders the full deputy profile
 
@@ -29,7 +26,7 @@ class DeputyProfile extends Component {
     _OnPressMailto(emails){
       console.log(emails[0].email)
       const address = emails[0].email
-      Linking.openURL('mailto:@address')
+      Linking.openURL('mailto:mailto@address?subject=abcdefg&body=body');
     }
 
 
@@ -65,15 +62,6 @@ class DeputyProfile extends Component {
                 <Text>{collaborateurs[0].collaborateur}</Text>
                 <Text>{collaborateurs[1].collaborateur}</Text>
                 <Text>{emails[0].email}</Text>
-
-                   <ListView>
-                      <View>
-                       {collaborateurs.map((obj, index) => {
-                            return <Text key={index}>{obj.collaborateur}</Text>;
-                        })}
-                      </View>
-                   </ListView>
-
               </Card>
             </View>
 

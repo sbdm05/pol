@@ -5,12 +5,6 @@ import { List, ListItem} from 'react-native-elements';
 import DeputyDetail from './deputy_detail';
 import DeputyProfile from './deputy_profile';
 import SearchBar from 'react-native-searchbar'
-import Tabs from '../config/routes.js';
-import {
-  StackNavigator,
-  TabNavigator
-} from 'react-navigation';
-
 //This component renders the full list of deputies
 
 class Flat_List extends Component{
