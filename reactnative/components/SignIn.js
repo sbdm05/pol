@@ -22,12 +22,13 @@ class SignIn extends Component {
         error: null,
         loading: false,
         error_password : false,
+        error_email: false,
       };
     }
 
 
     isValid() {
-      const { email, password } = this.state;
+      const { email, password, error_password, error_email } = this.state;
       let valid = false;
 
       if (email.length > 0 && password.length > 5) {
@@ -37,23 +38,25 @@ class SignIn extends Component {
 
       if (email.length === 0) {
         this.setState({ error: 'You must enter an email address' });
+        this.setState({error_email :true});
       } else if (password.length < 6) {
         this.setState({ error: 'Your password must contain at least 6 characters' });
-        console.log(password, 'error your password must contain at least 6 characters')
+        this.setState({error_password :true});
+        console.log({error_password}, "from isValid");
       }
       return valid;
     }
 
 
    onSignIn() {
-      const { email, password, error_password} = this.state;
+      const { email, password, error_password, error_email} = this.state;
       const {navigate} = this.props.navigation;
       //navigate('Home'); //it works.
 
        Meteor.loginWithPassword(email, password, (error) => {
           if (error) {
             this.setState({ error: error.reason});
-            this.setState({error_password :true});//it works
+            this.setState({error_email: true});
             console.log(error, 'erreur dans le sign in', {error_password})
           }else{
            console.log(email, 'signed in') //it works
@@ -63,7 +66,7 @@ class SignIn extends Component {
     }
 
     onCreateAccount() {
-      const { email, password, error_password } = this.state;
+      const { email, password, error_password, error_email } = this.state;
 
       const {navigate} = this.props.navigation;
 
@@ -71,7 +74,6 @@ class SignIn extends Component {
         Accounts.createUser({ email, password }, (error) => {
           if (error) {
             this.setState({ error: error.reason });
-            this.setState({error_password: true})
           } else {
             this.setState({email:''})
             navigate('SignOut')
@@ -85,12 +87,22 @@ class SignIn extends Component {
       if(error_password){
         return(<Text style={styles.errorMessage}>Votre mot de passe doit contenir au moins six caractères!</Text>)
       }
+    }
 
-  }
+     displayErrorEmail=()=>{
+      const { error_email } = this.state;
+      if(error_email){
+        return(<Text style={styles.errorMessage}>Oops ! Cet email n'est pas valide ! </Text>)
+      }
+    }
+
 
 render() {
     return (
       <View style={styles.container}>
+        <View>
+            {this.displayErrorEmail()}
+        </View>
         <Text>Entrez votre email</Text>
         <TextInput
           style={styles.input}
