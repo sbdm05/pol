@@ -21,6 +21,7 @@ class SignIn extends Component {
         password:'',
         error: null,
         loading: false,
+        error_password : false,
       };
     }
 
@@ -29,53 +30,68 @@ class SignIn extends Component {
       const { email, password } = this.state;
       let valid = false;
 
-      if (email.length > 0 && password.length > 0) {
+      if (email.length > 0 && password.length > 5) {
         valid = true;
       }
 
+
       if (email.length === 0) {
         this.setState({ error: 'You must enter an email address' });
-      } else if (password.length === 0) {
-        this.setState({ error: 'You must enter a password' });
+      } else if (password.length < 6) {
+        this.setState({ error: 'Your password must contain at least 6 characters' });
+        console.log(password, 'error your password must contain at least 6 characters')
       }
       return valid;
     }
 
 
    onSignIn() {
-      const { email, password } = this.state;
-
+      const { email, password, error_password} = this.state;
       const {navigate} = this.props.navigation;
+      //navigate('Home'); //it works.
 
        Meteor.loginWithPassword(email, password, (error) => {
           if (error) {
-            this.setState({ error: error.reason });
-            console.log(error, 'erreur dans le sign in')//it works
+            this.setState({ error: error.reason});
+            this.setState({error_password :true});//it works
+            console.log(error, 'erreur dans le sign in', {error_password})
           }else{
            console.log(email, 'signed in') //it works
+           navigate('Home')
           }
         });
     }
 
     onCreateAccount() {
-      const { email, password } = this.state;
+      const { email, password, error_password } = this.state;
 
+      const {navigate} = this.props.navigation;
 
       if (this.isValid()) {
         Accounts.createUser({ email, password }, (error) => {
           if (error) {
-            this.setState({ error: error.reason })
+            this.setState({ error: error.reason });
+            this.setState({error_password: true})
           } else {
             this.setState({email:''})
+            navigate('SignOut')
           };
         });
        }
+    }
+
+    displayErrorMessage=()=>{
+      const { error_password } = this.state;
+      if(error_password){
+        return(<Text style={styles.errorMessage}>Votre mot de passe doit contenir au moins six caractères!</Text>)
       }
 
+  }
 
 render() {
     return (
       <View style={styles.container}>
+        <Text>Entrez votre email</Text>
         <TextInput
           style={styles.input}
           onChangeText={(email) => this.setState({email})}
@@ -84,7 +100,10 @@ render() {
           autoCorrect={false}
           keyboardType="email-address"
         />
-
+          <View>
+            {this.displayErrorMessage()}
+          </View>
+        <Text>Votre mot de passe</Text>
         <TextInput
           style={styles.input}
           onChangeText={(password) => this.setState({password})}
@@ -136,6 +155,10 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontWeight: '500',
     fontSize: 16,
+  },
+  errorMessage:{
+    color: '#ff0000',
+    padding: 10,
   }
 });
 

@@ -21,7 +21,7 @@ class authUser extends Component{
 
   render(){
      if (this.data.user){
-      return <SignOut/>
+      return <SignOut navigation={this.props.navigation}/>
        }
       return <SignIn navigation={this.props.navigation} />;
   }
