@@ -9,14 +9,14 @@ import CircoFinder from './CircoFinder';
 
 //This component renders the full list of deputies
 
-class Flat_List extends Component{
+class SearchByCirco extends Component{
 
   constructor(props){
     super(props);
+    console.log(props)
     this._handleResults = this._handleResults.bind(this);
-    this._handleSearch = this._handleSearch.bind(this);
     this.state = {
-      data : [] // initiate state
+      data : null
     }
   }
 
@@ -25,44 +25,22 @@ class Flat_List extends Component{
     this.setState({data: results})
   }
 
-  _handleSearch(input){
-    // if any of nom, nom_circo or num_circo includes the search , return it//ok
-    const filteredData = (this.props.deputies || []).filter(({
-      depute: {
-        nom,
-        nom_circo,
-        num_circo,
-      }
-    }) =>
-      nom.includes(input) ||
-      nom_circo.includes(input) ||
-      num_circo.toString().includes(input)
-    )
-
-    this.setState({data : filteredData})
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({data: nextProps.deputies})
-  }
-
    render() {
     let listitems = this.state.data
-
+    if (this.state.data == null)  {
+      listitems = this.props.deputies
+    }
     return(
     <View>
 
       <SearchBar
         ref={(ref) => this.searchBar = ref}
-        //data={this.props.deputies}
+        data={this.props.deputies}
         handleResults={this._handleResults}
-        handleSearch={this._handleSearch}
         allDataOnEmptySearch = {true}
         showOnLoad = {true}
         hideBack
         autoCorrect= {false}
-        placeholder="Député ou Circonscription"
-
       />
 
       <List>
@@ -70,7 +48,11 @@ class Flat_List extends Component{
           data={listitems}
           keyExtractor={(item)=> item._id}
           renderItem={({item})=>(
-             <DeputyDetail deputy={item.depute} navigation={this.props.navigation} /> )} />
+             <
+            {nom_circo}
+            containerStyle={{ borderBottomWidth: 0.5 }}
+            />
+        >
       </List>
 
     </View>
@@ -91,5 +73,4 @@ export default createContainer(params=>{
   return{
     deputies: Meteor.collection('deputies').find(),
 };
-},Flat_List);
-
+},SearchByCirco);

@@ -59,8 +59,10 @@ class SignIn extends Component {
             this.setState({error_email: true});
             console.log(error, 'erreur dans le sign in', {error_password})
           }else{
-           console.log(email, 'signed in') //it works
-           navigate('Home')
+            console.log(email, 'signed in') //it works
+            navigate('Home');
+            this.setState({email:''});
+            this.setState({password:''});
           }
         });
     }
@@ -75,12 +77,18 @@ class SignIn extends Component {
           if (error) {
             this.setState({ error: error.reason });
           } else {
-            this.setState({email:''})
+            this.setState({email:''});
             navigate('SignOut')
           };
         });
        }
     }
+
+   onLostPassword = (emails) => {
+      const {email}= this.state;
+      console.log('from signin component')
+      Meteor.call('onLostPasswordMethod');
+    };
 
     displayErrorMessage=()=>{
       const { error_password } = this.state;
@@ -92,7 +100,7 @@ class SignIn extends Component {
      displayErrorEmail=()=>{
       const { error_email } = this.state;
       if(error_email){
-        return(<Text style={styles.errorMessage}>Oops ! Cet email n'est pas valide ! </Text>)
+        return(<Text style={styles.errorMessage}>Oops ! L'email ou le mot de passe ne sont pas corrects! </Text>)
       }
     }
 
@@ -130,8 +138,13 @@ render() {
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.button} onPress={this.onCreateAccount.bind(this)}>
-          <Text style={styles.buttonText}>Create Account</Text>
+          <Text style={styles.buttonText}>Créer un compte</Text>
         </TouchableOpacity>
+
+         <TouchableOpacity style={styles.button} onPress={this.onLostPassword.bind(this)}>
+          <Text style={styles.buttonText}>J'ai perdu mon mot de passe</Text>
+        </TouchableOpacity>
+
       </View>
     );
   }

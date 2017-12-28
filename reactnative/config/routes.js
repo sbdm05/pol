@@ -7,7 +7,9 @@ import DeputyProfile from '../components/deputy_profile';
 import authUser from '../components/authUser';
 import SignIn from '../components/SignIn';
 import SignOut from '../components/SignOut';
+import CircoFinder from '../components/CircoFinder';
 import Flat_List from '../components/FlatList';
+
 import Spinner from '../components/spinner';
 
 
@@ -22,9 +24,11 @@ class StackComponent extends Component{
         Home: {screen: Flat_List , navigationOptions: {title: 'Choisissez votre député'}},
         DeputyProfile:{screen: DeputyProfile, navigationOptions: {title: 'Profile'}},
         SignIn: { screen: SignIn, navigationOptions: {title: 'SignIn'}},
-        SignOut: { screen: SignOut, navigationOptions: {title: 'SignOut'}}
+        SignOut: { screen: SignOut, navigationOptions: {title: 'SignOut'}},
+        FindCirco : {screen: CircoFinder, navigationOptions: {title: 'Quelle est votre circonscription ?'}},
+
       },{
-      initialRouteName: 'SignIn'
+      initialRouteName: 'Home'
       });
       console.log(this.props, '---');
 

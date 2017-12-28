@@ -16,7 +16,7 @@ import {
 class DeputyDetail extends Component {
 
   render () {
-    const {nom, groupe_sigle, nom_circo, picture} = this.props.deputy;
+    const {nom, groupe_sigle, nom_circo, picture, num_circo} = this.props.deputy;
     const navigation = this.props.navigation;
 
     return(
@@ -26,6 +26,7 @@ class DeputyDetail extends Component {
             avatar={{uri: picture}}
             title={nom}
             subtitle={nom_circo}
+            badge={{value: num_circo}}
             containerStyle={{ borderBottomWidth: 0.5 }}
             onPress={()=> navigation.navigate('DeputyProfile', {...this.props.deputy})} />
     )

@@ -6,3 +6,12 @@ Accounts.onCreateUser(function onCreateUser(email, password) {
   return user;
 });
 
+Accounts.findUserByEmail(email){
+  console.log(userId)
+  return userId;
+};
+
+
+Accounts.sendResetPasswordEmail(function sendResetPasswordEmail(userId, email){
+  return userId;
+});
