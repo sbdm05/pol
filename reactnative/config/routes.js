@@ -28,10 +28,8 @@ class StackComponent extends Component{
         FindCirco : {screen: CircoFinder, navigationOptions: {title: 'Quelle est votre circonscription ?'}},
 
       },{
-      initialRouteName: 'Home'
+      initialRouteName: 'SignIn'
       });
-      console.log(this.props, '---');
-
 
     return(
 

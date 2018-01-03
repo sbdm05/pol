@@ -27,7 +27,7 @@ class DeputyProfile extends Component {
     _OnPressMailto(emails){
       console.log(emails[0].email)
       const address = emails[0].email
-      this.LaunchURL(`mailto:${address}`);
+      //this.LaunchURL(`mailto:${address}`);
       //Communications.email('address',null,null,'My Subject','My body text');//a vérifier si OK quand mise en ligne
     }
 

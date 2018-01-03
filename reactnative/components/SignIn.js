@@ -1,9 +1,13 @@
 import PropTypes from 'prop-types';
 import React , {Component}from 'react';
-import { StyleSheet, Text, View,TouchableOpacity, TextInput, Dimensions } from 'react-native';
+import { StyleSheet, Text, View,TouchableOpacity, TextInput, Dimensions, Input } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import Meteor, { Accounts } from 'react-native-meteor';
 import SignOut from './SignOut';
+//Import Connect
+import {connect} from 'react-redux';
+//Import Action Creators
+import {emailChanged} from '../actions';
 
 
 const { width } = Dimensions.get('window');
@@ -104,10 +108,24 @@ class SignIn extends Component {
       }
     }
 
+    //Call Action Creator
+    onEmailChange(text){
+    this.props.emailChanged(text);
+    console.log(this.props.emailChanged(text), 'ceci est this.props.emailChanged actioncreator')
+    console.log(this.props.email, 'ceci est le nouvel état')
+    }
+
 
 render() {
     return (
       <View style={styles.container}>
+      <Text>Input avec Redux</Text>
+        <TextInput
+          label= "Email"
+          placeholder= "email@gmail.com"
+          onChangeText= {this.onEmailChange.bind(this)}
+          value= {this.props.email}
+        />
         <View>
             {this.displayErrorEmail()}
         </View>
@@ -132,15 +150,12 @@ render() {
           autoCorrect={false}
           secureTextEntry={true}
         />
-
         <TouchableOpacity style={styles.button} onPress={this.onSignIn.bind(this)}>
           <Text style={styles.buttonText}>Sign In</Text>
         </TouchableOpacity>
-
         <TouchableOpacity style={styles.button} onPress={this.onCreateAccount.bind(this)}>
           <Text style={styles.buttonText}>Créer un compte</Text>
         </TouchableOpacity>
-
          <TouchableOpacity style={styles.button} onPress={this.onLostPassword.bind(this)}>
           <Text style={styles.buttonText}>J'ai perdu mon mot de passe</Text>
         </TouchableOpacity>
@@ -187,4 +202,14 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SignIn;
+
+
+const mapStateToProps= state=> {
+  return{
+    email: state.auth.email
+  };
+};
+
+export default connect (mapStateToProps, {emailChanged}) (SignIn);
+
+

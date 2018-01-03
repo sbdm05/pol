@@ -9,7 +9,9 @@ import StackComponent from './config/routes';
 import {
   TabNavigator, addNavigationHelpers }
 from 'react-navigation';
-
+import {Provider} from 'react-redux';
+import {createStore} from 'redux';
+import reducers from './reducers';
 
 
 export default class App extends React.Component {
@@ -28,7 +30,9 @@ export default class App extends React.Component {
   }); //do these work?yes you can test
 
     return (
-      <Tabs />
+      <Provider store={createStore(reducers)}>
+        <Tabs />
+      </Provider>
     );
   }
 }
