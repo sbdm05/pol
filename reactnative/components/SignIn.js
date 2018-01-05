@@ -8,6 +8,9 @@ import SignOut from './SignOut';
 import {connect} from 'react-redux';
 //Import Action Creators
 import {emailChanged} from '../actions';
+import {passwordChanged} from '../actions';
+import {loginUser} from '../actions';
+
 
 
 const { width } = Dimensions.get('window');
@@ -108,12 +111,28 @@ class SignIn extends Component {
       }
     }
 
-    //Call Action Creator
+
     onEmailChange(text){
+    //Call Action Creator
     this.props.emailChanged(text);
     console.log(this.props.emailChanged(text), 'ceci est this.props.emailChanged actioncreator')
     console.log(this.props.email, 'ceci est le nouvel état')
     }
+
+
+    onPasswordChange(password){
+    //Call Action Creator
+    this.props.passwordChanged(password);
+      console.log(this.props.passwordChanged (password))
+      console.log(this.props.password, 'ceci est le nouveau password')
+    }
+
+    onSignInWithRedux() {
+      const {navigate} = this.props.navigation;
+      const {email, password} = this.props;
+      this.props.loginUser({email, password});
+    }
+
 
 
 render() {
@@ -121,11 +140,25 @@ render() {
       <View style={styles.container}>
       <Text>Input avec Redux</Text>
         <TextInput
+          style={styles.input}
           label= "Email"
           placeholder= "email@gmail.com"
           onChangeText= {this.onEmailChange.bind(this)}
           value= {this.props.email}
         />
+        <Text>Votre mot de passe avec Redux </Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={this.onPasswordChange.bind(this)}
+          placeholder="Password"
+          autoCapitalize="none"
+          autoCorrect={false}
+          secureTextEntry={true}
+          value={this.props.password}
+        />
+            <TouchableOpacity style={styles.button} onPress={this.onSignInWithRedux.bind(this)}>
+              <Text style={styles.buttonText}>Sign In with Redux</Text>
+            </TouchableOpacity>
         <View>
             {this.displayErrorEmail()}
         </View>
@@ -206,10 +239,11 @@ const styles = StyleSheet.create({
 
 const mapStateToProps= state=> {
   return{
-    email: state.auth.email
+    email: state.auth.email,
+    password: state.auth.password
   };
 };
 
-export default connect (mapStateToProps, {emailChanged}) (SignIn);
+export default connect (mapStateToProps, {emailChanged, passwordChanged, loginUser}) (SignIn);
 
 

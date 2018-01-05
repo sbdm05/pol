@@ -10,9 +10,9 @@ import {
   TabNavigator, addNavigationHelpers }
 from 'react-navigation';
 import {Provider} from 'react-redux';
-import {createStore} from 'redux';
+import {createStore, applyMiddleware} from 'redux';
 import reducers from './reducers';
-
+import ReduxThunk from 'redux-thunk';
 
 export default class App extends React.Component {
 
@@ -29,8 +29,11 @@ export default class App extends React.Component {
     FlatList: {screen: Flat_List, navigationOptions:{title: 'flatlist'}}
   }); //do these work?yes you can test
 
+    //Créer le Store connecté avec ReduxThunk
+    const store= createStore(reducers, {}, applyMiddleware(ReduxThunk));
+
     return (
-      <Provider store={createStore(reducers)}>
+      <Provider store={store}>
         <Tabs />
       </Provider>
     );
