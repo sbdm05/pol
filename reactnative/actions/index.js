@@ -22,16 +22,23 @@ export const passwordChanged = (password)=>{
 };
 
 
-export const loginUser = ( {email, password})=>{
+export const loginUser = ( {email, password, navigation})=>{
+  //const {navigate} = this.props.navigation;
 
     return (dispatch)=>{
           Meteor.loginWithPassword(email, password, (error) => {
           if (error) {
             console.log('erreur dans le sign in')
+            //Redirect before dispatch action
+            //navigate ('Home');
             return dispatch ({type: LOGIN_USER_FAIL, payload: email});
           }else{
             console.log('pas d erreur dans le signin')
+            //Redirect before dispatch action
+            //return this.props.navigation.dispatch(navigateAction);
             return dispatch({type: LOGIN_USER_SUCCESS, payload: email });
+
+
 
           };
         });

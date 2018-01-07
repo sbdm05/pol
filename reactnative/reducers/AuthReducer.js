@@ -31,7 +31,6 @@ export default (state= INITIAL_STATE, action)=>{
       console.log('from login user fail reducer');
       return {...state, email:'fail'};
 
-
       case LOGIN_USER_SUCCESS:
       console.log('from login user success reducer');
       return {...state, email:'success'}

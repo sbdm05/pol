@@ -17,6 +17,7 @@ const { width } = Dimensions.get('window');
 
 class SignIn extends Component {
 
+
     static navigationOptions = {
       tabBarVisible: false //not working
     };

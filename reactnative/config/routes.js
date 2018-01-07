@@ -20,11 +20,12 @@ class StackComponent extends Component{
     render(){
 
       const MainStack = StackNavigator({
-        Auth: {screen: authUser, navigationOptions: {title: 'Login ou SignUp'}},
-        Home: {screen: Flat_List , navigationOptions: {title: 'Choisissez votre député'}},
-        DeputyProfile:{screen: DeputyProfile, navigationOptions: {title: 'Profile'}},
+        //Auth: {screen: authUser, navigationOptions: {title: 'Login ou SignUp'}},
         SignIn: { screen: SignIn, navigationOptions: {title: 'SignIn'}},
         SignOut: { screen: SignOut, navigationOptions: {title: 'SignOut'}},
+        Home: {screen: Flat_List , navigationOptions: {title: 'Choisissez votre député'}},
+        DeputyProfile:{screen: DeputyProfile, navigationOptions: {title: 'Profile'}},
+
         FindCirco : {screen: CircoFinder, navigationOptions: {title: 'Quelle est votre circonscription ?'}},
 
       },{
@@ -40,4 +41,4 @@ class StackComponent extends Component{
 }
 
 export default StackComponent;
-//where is this component used?
+
