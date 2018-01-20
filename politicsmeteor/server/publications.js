@@ -1,6 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import {Deputies} from '../imports/collections/deputies.js';
 
+//import {usersShemas} from '../imports/collections/usersShemas.js';// not sure about the name of the file to import, make the app crash
+
 //console.log(Deputies.find({}).fetch(), "this file runs")
 
 Meteor.publish('deputies', () => {
@@ -9,7 +11,17 @@ Meteor.publish('deputies', () => {
 
 
 Meteor.methods({
-  'onLostPasswordMethod': function(){
+  'onSendResetPasswordEmail': function(){
     console.log('from onLostPassword method');//It returns the console.log
+  },
+
+
+  'onSelectingAdeputy': function (deputyId){
+        Meteor.users.update(Meteor.userId(), {
+        $set: {
+          'profile.selectedDeputy':  deputyId,
+        },
+      });
   }
 });
+
