@@ -15,8 +15,6 @@ import {
 class Deputies_List extends Component{
 
 
-
-
    render(){
     const {deputies}= this.props; // the list is here
     const { navigate } = this.props.navigation; // this works?yes
@@ -40,7 +38,6 @@ class Deputies_List extends Component{
 
 export default createContainer(params=>{
   Meteor.subscribe('deputies');
-
   return{
     deputies: Meteor.collection('deputies').find(),
 };

@@ -94,8 +94,14 @@ class SignIn extends Component {
 
    onLostPassword = (emails) => {
       const {email}= this.state;
-      console.log('from signin component')
-      Meteor.call('onLostPasswordMethod');
+      Accounts.forgotPassword({email}, function (err){
+        if (err){
+          console.log(err.reason);
+        }else{
+          console.log('works');
+          Meteor.call('onSendResetPasswordEmail');
+        }
+      });
     };
 
     displayErrorMessage=()=>{

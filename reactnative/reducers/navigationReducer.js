@@ -4,10 +4,10 @@ import {NavigationActions} from 'react-navigation';
 import MainStack from '../config/routes';
 
 const ActionForLoggedOut = MainStack.router.getActionForPathAndParams('SignIn');
-const ActionForLoggedIn = MainStack.router.getActionForPathAndParams("Home");
+const ActionForLoggedIn = MainStack.router.getActionForPathAndParams('Home');
 
 const stateForLoggedOut = MainStack.router.getStateForAction(ActionForLoggedOut);
-const stateForLoggedIn = MainStack.router.getStateForAction(ActionForLoggedOut);
+const stateForLoggedIn = MainStack.router.getStateForAction(ActionForLoggedIn);
 
 const initialState= {stateForLoggedOut, stateForLoggedIn};
 

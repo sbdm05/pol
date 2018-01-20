@@ -1,16 +1,17 @@
 import React , {Component}from 'react';
 import { StyleSheet, Text, View, ScrollView, FlatList, TouchableHighlight, Image, WebView, Linking, ListView } from 'react-native';
 import Meteor, {createContainer, MeteorListView} from 'react-native-meteor';
+//import {connect} from 'react-redux';
 import { List, ListItem, Card, SocialIcon, Button} from 'react-native-elements';
 import DeputyDetail from './deputy_detail';
+import Spinner from './spinner';
 import Tabs from '../config/routes.js';
 import Communications from 'react-native-communications';
-
+//import {selectedDeputy} from '../actions';
 
 //this component renders the full deputy profile
 
 class DeputyProfile extends Component {
-
 
     constructor(props){
       super(props);
@@ -44,10 +45,17 @@ class DeputyProfile extends Component {
         }).catch(err => console.warn('An unexpected error happened', err));
     }
 
+    _OnSelectDeputy =(id)=> {
+
+     Meteor.call('onSelectingAdeputy', id);
+    }
+
 
     render(){
-
-        const{nom, emails, picture, url_an, groupe_sigle, profession, nom_circo, num_circo, twitter, sites_web, collaborateurs} = this.props.navigation.state.params;
+        console.log(Meteor.user())
+        const{nom, emails, picture, url_an, groupe_sigle, profession, nom_circo, num_circo, twitter, sites_web, collaborateurs, id} = this.props.navigation.state.params;
+        const navigation = this.props.navigation;
+        //console.log(this.props.navigation.state.params.id)
 
         return(
           <View>
@@ -81,6 +89,14 @@ class DeputyProfile extends Component {
                 <Text>{collaborateurs[0].collaborateur}</Text>
                 <Text>{collaborateurs[1].collaborateur}</Text>
                 <Text>{emails[0].email}</Text>
+                <Button
+                    title="Voir la fiche de ce député"
+                    onPress={()=> navigation.navigate('Spinner', {...this.props.deputy})}
+                />
+                <Button
+                  title= "Select that deputy"
+                  onPress={()=>this._OnSelectDeputy(id)}
+                />
               </Card>
             </View>
 

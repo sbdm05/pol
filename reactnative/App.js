@@ -9,14 +9,13 @@ import StackComponent from './config/routes';
 import {
   TabNavigator, addNavigationHelpers }
 from 'react-navigation';
-import {Provider, connect} from 'react-redux';
+import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
 import reducers from './reducers';
 import ReduxThunk from 'redux-thunk';
 
-
-
 export default class App extends React.Component {
+
 
    componentWillMount() {
     Meteor.connect('ws://localhost:3000/websocket');
@@ -28,32 +27,14 @@ export default class App extends React.Component {
     List: {screen: StackComponent},
     Spinner:{screen: Spinner, navigationOptions: {title: 'spinner'}},
     FlatList: {screen: Flat_List, navigationOptions:{title: 'flatlist'}}
-  });
+  }); //do these work?yes you can test
 
     //Créer le Store connecté avec ReduxThunk
     const store= createStore(reducers, {}, applyMiddleware(ReduxThunk));
 
-    //Créer App pour ReduxNavigation
-    const App=({dispatch, navigationReducer})=>(
-      <Tabs
-        navigation={addNavigationHelpers({
-          dispatch,
-          state: navigationReducer,
-        })}
-
-      />
-      );
-
-    const mapStateToProps=(state=>({
-      navigationReducer: state.navigationReducer,
-    }))
-
-    const AppWithNavigation= connect(mapStateToProps)(App);
-
-
     return (
       <Provider store={store}>
-        <AppWithNavigation />
+        <Tabs />
       </Provider>
     );
   }
@@ -67,5 +48,3 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-
-

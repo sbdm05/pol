@@ -10,20 +10,16 @@ class authUser extends Component{
 
   constructor(props){
     super(props);
-    this.data={};
-  }
-
-  getMeteorData() {
-    return {
-      user: Meteor.user(),
-    };
+    console.log("test", Meteor.user())
   }
 
   render(){
-     if (this.data.user){
+     if (Meteor.user()){
       return <SignOut navigation={this.props.navigation}/>
+
        }
-      return <SignIn navigation={this.props.navigation} />;
+      return <SignIn navigation={this.props.navigation} />
+      console.log(Meteor.users)
   }
 
 }

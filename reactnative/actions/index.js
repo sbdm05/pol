@@ -3,6 +3,7 @@ import {EMAIL_CHANGED} from './types';
 import {PASSWORD_CHANGED} from './types';
 import {LOGIN_USER_FAIL} from './types';
 import {LOGIN_USER_SUCCESS} from './types';
+import {SELECTED_DEPUTY} from './types';
 import { NavigationActions } from 'react-navigation';
 
 
@@ -38,9 +39,15 @@ export const loginUser = ( {email, password, navigation})=>{
             //return this.props.navigation.dispatch(navigateAction);
             return dispatch({type: LOGIN_USER_SUCCESS, payload: email });
 
-
-
           };
         });
     };
+};
+
+
+export const selectedDeputy=(nom)=>{
+  return{
+    type: SELECTED_DEPUTY,
+    payload: nom
+  };
 };
