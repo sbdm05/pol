@@ -25,12 +25,12 @@ class DeputyProfile extends Component {
       const url = sites_web[0].site
       Linking.openURL(url);
     }
-    _OnPressMailto(emails){
-      console.log(emails[0].email)
-      const address = emails[0].email
-      //this.LaunchURL(`mailto:${address}`);
-      //Communications.email('address',null,null,'My Subject','My body text');//a vérifier si OK quand mise en ligne
-    }
+    // _OnPressMailto(emails){
+    //   console.log(emails[0].email)
+    //   const address = emails[0].email
+    //   //this.LaunchURL(`mailto:${address}`);
+    //   //Communications.email('address',null,null,'My Subject','My body text');//a vérifier si OK quand mise en ligne
+    // }
 
     LaunchURL(url) {
       Linking.canOpenURL(url).then(supported => {
@@ -46,13 +46,13 @@ class DeputyProfile extends Component {
     }
 
     _OnSelectDeputy =(id)=> {
-
+      console.log('from onSelectingAdeputy')
      Meteor.call('onSelectingAdeputy', id);
     }
 
 
     render(){
-        console.log(Meteor.user())
+        //console.log(Meteor.user().profile.selectedDeputy)
         const{nom, emails, picture, url_an, groupe_sigle, profession, nom_circo, num_circo, twitter, sites_web, collaborateurs, id} = this.props.navigation.state.params;
         const navigation = this.props.navigation;
         //console.log(this.props.navigation.state.params.id)
@@ -86,8 +86,8 @@ class DeputyProfile extends Component {
                     />
                 </View>
                 <Text>Collaborateurs</Text>
-                <Text>{collaborateurs[0].collaborateur}</Text>
-                <Text>{collaborateurs[1].collaborateur}</Text>
+                <Text>{collaborateurs && collaborateurs[0].collaborateur}</Text>
+
                 <Text>{emails[0].email}</Text>
                 <Button
                     title="Voir la fiche de ce député"

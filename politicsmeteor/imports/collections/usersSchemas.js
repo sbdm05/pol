@@ -88,4 +88,9 @@ Schema.User = new SimpleSchema({
     }
 });
 
+
+
 Meteor.users.attachSchema(Schema.User);
+
+
+

@@ -25,7 +25,7 @@ export default class App extends React.Component {
   render() {
     const Tabs = TabNavigator({
     List: {screen: StackComponent},
-    Spinner:{screen: Spinner, navigationOptions: {title: 'spinner'}},
+    //Spinner:{screen: Spinner, navigationOptions: {title: 'spinner'}},
     FlatList: {screen: Flat_List, navigationOptions:{title: 'flatlist'}}
   }); //do these work?yes you can test
 

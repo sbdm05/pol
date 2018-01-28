@@ -21,3 +21,4 @@ accounts-password
 accounts-ui
 email
 aldeed:collection2-core@2.0.0
+dburles:collection-helpers

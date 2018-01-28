@@ -24,8 +24,8 @@ class StackComponent extends Component{
         SignIn: { screen: SignIn, navigationOptions: {title: 'SignIn'}},
         SignOut: { screen: SignOut, navigationOptions: {title: 'SignOut'}},
         Home: {screen: Flat_List , navigationOptions: {title: 'Choisissez votre député'}},
-        DeputyProfile:{screen: DeputyProfile, navigationOptions: {title: 'Profile'}},
-        Spinner: {screen: Spinner, navigationOptions: {title:'Spinner'}},
+        DeputyProfile:{screen: DeputyProfile, navigationOptions: {title: 'Deputy Profile'}},
+        Spinner: {screen: Spinner, navigationOptions: {title:'My Profile'}},
         FindCirco : {screen: CircoFinder, navigationOptions: {title: 'Quelle est votre circonscription ?'}},
         AuthScreen: {screen: authUser, navigationOptions: {title: 'Welcome'}}
       },{

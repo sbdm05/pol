@@ -9,6 +9,10 @@ Meteor.publish('deputies', () => {
   return Deputies.find({});
 });
 
+Meteor.publish('selectedDeputy', ()=> {
+  return Deputies.findOne(Meteor.user().profile.selectedDeputy);
+});
+
 
 Meteor.methods({
   'onSendResetPasswordEmail': function(){
@@ -24,4 +28,5 @@ Meteor.methods({
       });
   }
 });
+
 
