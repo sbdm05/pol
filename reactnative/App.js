@@ -26,8 +26,8 @@ export default class App extends React.Component {
     const Tabs = TabNavigator({
     List: {screen: StackComponent},
     //Spinner:{screen: Spinner, navigationOptions: {title: 'spinner'}},
-    FlatList: {screen: Flat_List, navigationOptions:{title: 'flatlist'}}
-  }); //do these work?yes you can test
+    //Profil: {screen: Spinner, navigationOptions:{title: 'Mon Profil'}}
+  });
 
     //Créer le Store connecté avec ReduxThunk
     const store= createStore(reducers, {}, applyMiddleware(ReduxThunk));

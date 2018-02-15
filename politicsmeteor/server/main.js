@@ -8,6 +8,7 @@ import './publications';
 Meteor.startup(() => {
 console.log("log here")
 console.log(Deputies.find().count())
+// Check to see if data exists in the collection
   if (Deputies.find().count() ===0){
 
     const deputyList = JSON.parse(Assets.getText('deputies_list.json'));

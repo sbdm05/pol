@@ -48,12 +48,12 @@ const styles={
 }
 
 export default createContainer(params=>{
-
     Meteor.subscribe('selectedDeputy');
     return{
-      selectedDeputy: Meteor.collection('deputies').findOne(Meteor.user().profile.selectedDeputy),
+      selectedDeputy: Meteor.collection('deputies').findOne({"depute.id" : Meteor.user().profile.selectedDeputy}),
     };
 
 },Spinner);
+
 
 

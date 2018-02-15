@@ -5,6 +5,7 @@ import {Deputies} from '../imports/collections/deputies.js';
 
 //console.log(Deputies.find({}).fetch(), "this file runs")
 
+//Return all the deputies
 Meteor.publish('deputies', () => {
   return Deputies.find({});
 });

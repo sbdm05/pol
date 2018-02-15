@@ -1,22 +1,23 @@
-import { Template } from 'meteor/templating';
-import { ReactiveVar } from 'meteor/reactive-var';
+// Any JS in here is automatically ran for us
 
-import './main.html';
+// Import the React library
+import React from 'react';
+import ReactDOM from 'react-dom';
+import DeputyList from './components/deputies_list';
 
-Template.hello.onCreated(function helloOnCreated() {
-  // counter starts at 0
-  this.counter = new ReactiveVar(0);
+
+const App =() =>{
+  return(
+    <div>
+      <DeputyList />
+    </div>
+  );
+}
+
+
+
+//After Meteor loads in the browser, render my app to the DOM.
+Meteor.startup(() => {
+  ReactDOM.render(<App />, document.querySelector('.container'));
 });
 
-Template.hello.helpers({
-  counter() {
-    return Template.instance().counter.get();
-  },
-});
-
-Template.hello.events({
-  'click button'(event, instance) {
-    // increment the counter when button is clicked
-    instance.counter.set(instance.counter.get() + 1);
-  },
-});
