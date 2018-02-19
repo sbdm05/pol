@@ -1,6 +1,6 @@
 import React from 'react';
 import {createContainer} from 'meteor/react-meteor-data';
-import Deputies from'./imports/collections/deputies';
+import { Deputies } from'/imports/collections/deputies';
 
 const DeputyList = (props) =>{
   //props.deputies=> an array of deputies object
