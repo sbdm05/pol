@@ -10,6 +10,12 @@ Meteor.publish('deputies', () => {
   return Deputies.find({});
 });
 
+//Return only 20 deputies for web
+Meteor.publish('deputies_20', function(per_page){
+  return Deputies.find({}, {limit: per_page});
+});
+
+
 Meteor.publish('selectedDeputy', ()=> {
   return Deputies.findOne(Meteor.user().profile.selectedDeputy);
 });

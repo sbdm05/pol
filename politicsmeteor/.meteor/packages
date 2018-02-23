@@ -25,3 +25,4 @@ dburles:collection-helpers
 react
 react-meteor-data
 react-runtime
+twbs:bootstrap@3.3.6

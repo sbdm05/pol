@@ -1,22 +1,41 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {createContainer} from 'meteor/react-meteor-data';
 import { Deputies } from'/imports/collections/deputies';
+import DeputyDetail from './deputy_detail';
 
-const DeputyList = (props) =>{
+const PER_PAGE = 20;
+
+class DeputyList extends Component{
+
+  componentWillMount(){
+    this.page=1;
+  }
+
+  handleButtonClick(){
+    Meteor.subscribe('deputies_20', PER_PAGE * (this.page + 1));
+    this.page += 1;
+  }
+
+  render(){
   //props.deputies=> an array of deputies object
-  console.log('tes')
-  return(
-    <div>
-      <div className="deputy-list">
-        From Deputy List
-      </div>
-    </div>
-    );
+
+      return(
+        <div>
+          <div className="deputy-list">
+            {this.props.deputies.map(deputy=> <DeputyDetail key={deputy._id} deputy={deputy}/>)}
+          </div>
+          <button onClick={this.handleButtonClick.bind(this)}
+            className="btn btn-primary">
+            Load More...
+          </button>
+        </div>
+        );
+  }
 };
 
 export default createContainer(()=>{
-  //1Set up subscription
-  Meteor.subscribe('deputies');
+  //Set up subscription
+  Meteor.subscribe('deputies_20', PER_PAGE);
   //Return an object as props. Whatever we return will be sent to EmployeeList
   //key is deputies
   return{deputies: Deputies.find({}).fetch()};
