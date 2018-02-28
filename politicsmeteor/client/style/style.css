@@ -6,3 +6,7 @@
 .thumbnail{
   width: 300px;
 }
+#login-buttons{
+  margin:18px;
+  font-size:14px;
+}

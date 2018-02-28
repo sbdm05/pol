@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Random } from 'meteor/random';
-import  {Deputies} from '../imports/collections/deputies.js';
+import {Deputies} from '../imports/collections/deputies.js';
+import {Laws} from '../imports/collections/laws';
 import './publications';
 
 

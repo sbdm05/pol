@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import {Deputies} from '../imports/collections/deputies.js';
-
+import {Laws} from '../imports/collections/laws.js';
 //import {usersShemas} from '../imports/collections/usersShemas.js';// not sure about the name of the file to import, make the app crash
 
 //console.log(Deputies.find({}).fetch(), "this file runs")
@@ -20,6 +20,10 @@ Meteor.publish('selectedDeputy', ()=> {
   return Deputies.findOne(Meteor.user().profile.selectedDeputy);
 });
 
+
+Meteor.publish('laws', () => {
+  return Laws.find({});
+});
 
 Meteor.methods({
   'onSendResetPasswordEmail': function(){
