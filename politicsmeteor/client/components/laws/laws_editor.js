@@ -5,12 +5,9 @@ import {Laws} from '../../../imports/collections/laws';
 class LawEditor extends Component{
 
     handleSubmit(e){
-        
         e.preventDefault();
-        
         const titleLoi=e.target.titleLoi.value;
         const abstractLoi=e.target.abstractLoi.value;
-
         if(titleLoi){
             //e.target.titleLoi.value='';
             //e.target.abstractLoi.value='';

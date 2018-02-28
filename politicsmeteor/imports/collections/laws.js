@@ -13,7 +13,6 @@ Meteor.methods({
   },
 
   'laws.update': function(titleLoi, abstractLoi){
-    
     return  Laws.update ({
       $set:{title:titleLoi, abstract:abstractLoi}
     });
