@@ -14,7 +14,7 @@ Meteor.methods({
 
   'laws.update': function(lawId, titleLoi, abstractLoi, ){
     console.log(lawId, 'from laws.update')
-    
+
     return  Laws.update (lawId, {
       $set:{title:titleLoi, abstract:abstractLoi}
     });

@@ -3,7 +3,23 @@ import {Laws} from '../../../imports/collections/laws';
 //import { Meteor } from 'meteor/meteor';
 
 class LawEditor extends Component{
-    
+    constructor(props){
+        super(props);
+        this.state={
+            titre: 'Votre titre ici',
+            abstract:'abstract ici'
+        }
+    }
+
+    componentWillMount(props){
+        this.setState({
+            titre: this.props.law.title,
+            abstract: this.props.law.abstract
+        });
+    };
+
+
+
     handleSubmit(e, props){
         console.log(this.props, 'from handle submit')
         e.preventDefault();
@@ -17,8 +33,21 @@ class LawEditor extends Component{
             //e.target.titleLoi.value='';
             //e.target.abstractLoi.value='';
             Meteor.call('laws.update',lawId, titleLoi, abstractLoi); 
+            this.setState({
+                titre:titleLoi,
+                abstract:abstractLoi
+            })
         }
     };
+
+    handleChange(e, props){
+        console.log(this.props, 'from handlechange')
+        this.setState({
+            titre:input.value,
+            abstract:input.value
+        });
+    };
+
 
     render(){
         console.log(this.props.law, 'from render')
@@ -28,13 +57,17 @@ class LawEditor extends Component{
                 <input className="form-control" 
                 type="text"
                 ref="title"
-                name="titleLoi"/>
+                name="titleLoi"
+                value={this.state.titre}
+                onChange={this.handleChange.bind(this)}/>
 
                 <label>Description</label>
                 <input className="form-control"
                 type="text"
                 ref="abstract"
-                name="abstractLoi"/>
+                name="abstractLoi"
+                value={this.state.abstract}
+                onChange={this.handleChange.bind(this)}/>
 
                 <button className="btn btn-primary">Enregistrer</button>
             </form>
