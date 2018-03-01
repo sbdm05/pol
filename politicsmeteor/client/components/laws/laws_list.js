@@ -19,6 +19,8 @@ class LawsList extends Component {
       return (
         <li className="list-group-item" key={law._id}>
           <Link to={url}>Loi {law._id}</Link>
+          <p>{law.title}</p>
+          <p>{law.abstract}</p>
           <span className="pull-right">
             <button
               className="btn btn-danger"
