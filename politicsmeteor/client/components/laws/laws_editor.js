@@ -1,6 +1,9 @@
 import React, {Component} from 'react'; 
 import {Laws} from '../../../imports/collections/laws';
-//import { Meteor } from 'meteor/meteor';
+import {Tracker} from 'meteor/tracker'; 
+import { Meteor } from 'meteor/meteor';
+import {createContainer} from 'meteor/react-meteor-data';
+
 
 class LawEditor extends Component{
     constructor(props){
@@ -12,13 +15,12 @@ class LawEditor extends Component{
     }
 
     componentWillMount(props){
-        this.setState({
-            titre: this.props.law.title,
-            abstract: this.props.law.abstract
+        //console.log(this.props.law._id)
+            this.setState({
+                titre: this.props.law.title,
+                abstract: this.props.law.abstract
         });
     };
-
-
 
     handleSubmit(e, props){
         console.log(this.props, 'from handle submit')
@@ -77,4 +79,7 @@ class LawEditor extends Component{
     }
 }
 
-export default LawEditor; 
+export default createContainer(() => {
+    Meteor.subscribe('laws');
+    return {laws: Laws.find({}).fetch()};
+  }, LawEditor)
