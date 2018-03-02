@@ -1,6 +1,5 @@
 import React, {Component} from 'react'; 
 import {Laws} from '../../../imports/collections/laws';
-import {Tracker} from 'meteor/tracker'; 
 import { Meteor } from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
 
@@ -8,20 +7,35 @@ import {createContainer} from 'meteor/react-meteor-data';
 class LawEditor extends Component{
     constructor(props){
         super(props);
-        this.state={
-            titre: 'Votre titre ici',
-            abstract:'abstract ici'
-        }
+        const { law } = props;
+        this.state = {
+         titre: law.title || this.defaultState.titre,
+         abstract: law.abstract || this.defaultState.abstract
+      };
     }
 
-    componentWillMount(props){
-        //console.log(this.props.law._id)
-            this.setState({
-                titre: this.props.law.title,
-                abstract: this.props.law.abstract
-        });
-    };
+    //So the field are already populated with the data
+    // componentWillMount(props, title, abstract){
+    //     console.log(this.props.law._id)
+    //         this.setState({
+    //           titre: this.props.law.title,
+    //           abstract: this.props.law.abstract
+    //     });
+    // };
 
+    componentWillReceiveProps(nextProps) {
+      if(nextProps.law._id !== this.props.law._id){
+        this.setState(this.defaultState)
+      }
+    }
+
+    defaultState = {
+      titre: 'Votre titre ici',
+      abstract:'abstract ici'
+    };
+    
+    
+    //Update Fields in the db + update state
     handleSubmit(e, props){
         console.log(this.props, 'from handle submit')
         e.preventDefault();
@@ -42,17 +56,19 @@ class LawEditor extends Component{
         }
     };
 
-    handleChange(e, props){
+    //Take the new value and displays it
+    handleChange(e, props, value, input){
         console.log(this.props, 'from handlechange')
         this.setState({
             titre:input.value,
             abstract:input.value
         });
     };
-
+    
 
     render(){
         console.log(this.props.law, 'from render')
+        console.log(this.state.titre, 'state.titre')
         return(
             <form onSubmit={this.handleSubmit.bind(this)} >
                 <label>Titre</label>
