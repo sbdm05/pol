@@ -7,7 +7,6 @@ class Header extends Component{
 
   onLawClick(event){
     event.preventDefault();
-    
     Meteor.call('laws.insert', (error, lawId)=>{
       //console.log(lawId);
       browserHistory.push(`/laws/${lawId}`)

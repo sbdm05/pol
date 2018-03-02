@@ -8,12 +8,14 @@ import App from './components/app';
 import {Laws} from '../imports/collections/laws';
 import LawsMain from './components/laws/laws_main';
 import LawsList from './components/laws/laws_list';
+import VotesMain from './components/votes/votesMain'; 
 
 const routes=(
   <Router history={browserHistory}>
     <Route path="/" component={App}>
       <IndexRoute component={LawsList}/>
       <Route path="laws/:lawId" component={LawsMain}/>
+      <Route path="votes/:lawId" component={VotesMain}/>
     </Route>
   </Router>
 );

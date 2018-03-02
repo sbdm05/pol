@@ -1,12 +1,15 @@
 import React from 'react';
 import Header from './header';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 
 export default (props) =>{
   return(
-    <div>
-      <Header/>
-      {props.children}
-    </div>
+    <MuiThemeProvider>
+      <div>
+        <Header/>
+        {props.children}
+      </div>
+    </MuiThemeProvider>
   );
 };

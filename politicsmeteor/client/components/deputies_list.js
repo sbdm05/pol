@@ -6,6 +6,9 @@ import DeputyDetail from './deputy_detail';
 const PER_PAGE = 20;
 
 class DeputyList extends Component{
+  constructor(props){
+    super();
+  }
 
   componentWillMount(){
     this.page=1;
@@ -18,11 +21,11 @@ class DeputyList extends Component{
 
   render(){
   //props.deputies=> an array of deputies object
-
+  console.log(this.props.law, 'from deputy list')
       return(
         <div>
           <div className="deputy-list">
-            {this.props.deputies.map(deputy=> <DeputyDetail key={deputy._id} deputy={deputy}/>)}
+            {this.props.deputies.map(deputy=> <DeputyDetail {...this.props} key={deputy._id} deputy={deputy} />)}
           </div>
           <button onClick={this.handleButtonClick.bind(this)}
             className="btn btn-primary">

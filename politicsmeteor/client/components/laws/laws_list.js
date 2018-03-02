@@ -15,6 +15,7 @@ class LawsList extends Component {
     
     return this.props.laws.map(law => {
       const url= "/laws/" + law._id;
+      const url_votes="/votes/" + law._id;
 
       return (
         <li className="list-group-item" key={law._id}>
@@ -28,6 +29,7 @@ class LawsList extends Component {
               Effacer
             </button>
           </span>
+          <button key={law._id}><Link to={url_votes}>Attribuer les votes</Link></button>
         </li>
       );
     });
@@ -38,7 +40,6 @@ class LawsList extends Component {
     return(
       <ul className="list-group">
         {this.renderList()}
-
       </ul>
       );
   }
