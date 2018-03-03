@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Toggle from 'material-ui/Toggle';
 import FlatButton from 'material-ui/FlatButton';
+import {Deputies} from '../../imports/collections/deputies';
 
 
 const styles = {
@@ -35,9 +36,15 @@ class DeputyDetail extends Component {
   }
 
   onToggled(){
-    //console.log('test from ontoggle')
-    console.log(this.props.law, 'from ontoggle') return the lawId
-    console.log(this.props.deputy._id)//return the deputy ID
+    console.log(this.props.law, 'ID de la loi') //return the lawId
+    console.log(this.props.deputy._id, 'ID du député')//return the deputy 
+    //meteor.call pour insert a new field
+    const depute=this.props.deputy._id;
+    const loi=this.props.law;
+    const choix= 'oui'; 
+
+    console.log(loi, 'loi')
+    Meteor.call('votes.insert', depute, loi, choix)
   }
 
   render(){
