@@ -33,22 +33,35 @@ class DeputyDetail extends Component {
   
   constructor(props){
     super();
+    this.state={
+      isToggled:false,
+      votes_value: 'non'
+    }
   }
 
   onToggled(){
-    console.log(this.props.law, 'ID de la loi') //return the lawId
-    console.log(this.props.deputy._id, 'ID du député')//return the deputy 
-    //meteor.call pour insert a new field
-    const depute=this.props.deputy._id;
-    const loi=this.props.law;
-    const choix= 'oui'; 
+    //Define the state
+    const{votes_value, isToggled}=this.state;
+    //Set new states
+    this.setState({
+      isToggled: true,
+      votes_value: 'oui'
+    }, ()=>console.log(this.state.votes_value, 'fromontoggled'));
+    
 
-    console.log(loi, 'loi')
-    Meteor.call('votes.insert', depute, loi, choix)
+    //meteor.call pour insert a new field
+    console.log(this.props.law._id, 'ID de la loi') //return the lawId
+    console.log(this.props.deputy._id, 'ID du député')//return the deputy 
+    const depute=this.props.deputy._id;
+    const loi=this.props.law._id;
+    const choix= this.state.votes_value; 
+    console.log(choix, 'choix')
+    Meteor.call('votes.insert', depute,loi, choix)    
   }
 
   render(){
-    console.log(this.props.law, 'from rebder')
+    const{votes_value, isToggled}=this.state;
+    console.log(this.props.law, 'from rebder', votes_value)
           return(
             <div className="thumbnail">
               <div className="caption">
@@ -61,6 +74,7 @@ class DeputyDetail extends Component {
             <Toggle
               label="Simple"
               style={styles.toggle}
+              toggled={this.state.isToggled}
               onToggle={()=>this.onToggled(this.props.law)}//needs to be an arrow function or it will fire automatically
             />
             </div>

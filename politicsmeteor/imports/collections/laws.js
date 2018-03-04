@@ -8,7 +8,7 @@ Meteor.methods({
     title: titleLoi,
     abstract :abstractLoi,
     category: [],
-    ownerId: this.userId,
+    ownerId: this.userId
     });
   },
 
