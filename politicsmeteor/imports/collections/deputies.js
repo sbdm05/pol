@@ -6,7 +6,7 @@ Meteor.methods({
     'votes.insert': function (depute, loi, choix){
         console.log('from votes.insert', depute, loi, choix)
         return Deputies.update(depute,
-           {$set: {loi: {[loi]:choix}}}
+           {$push: {votes: {[loi]:choix}}}
         );
     },
 });
