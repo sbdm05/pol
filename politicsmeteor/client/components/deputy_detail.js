@@ -39,11 +39,11 @@ class DeputyDetail extends Component {
     }
   }
 
-  onToggled(){
+  async onToggled(){
     //Define the state
     const{votes_value, isToggled}=this.state;
     //Set new states
-    this.setState({
+    await this.setState({
       isToggled: true,
       votes_value: 'oui'
     }, ()=>console.log(this.state.votes_value, 'fromontoggled'));
