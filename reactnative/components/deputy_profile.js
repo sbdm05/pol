@@ -90,7 +90,7 @@ class DeputyProfile extends Component {
 
                 <Text>{emails[0].email}</Text>
                 <Button
-                    title="Voir la fiche de ce député"
+                    title="Mon profil"
                     onPress={()=> navigation.navigate('Spinner', {...this.props.deputy})}
                 />
                 <Button

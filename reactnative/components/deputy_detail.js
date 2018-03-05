@@ -19,6 +19,7 @@ class DeputyDetail extends Component {
     const {nom, groupe_sigle, nom_circo, picture, num_circo} = this.props.deputy;
     const navigation = this.props.navigation;
 
+
     return(
 
         <ListItem
