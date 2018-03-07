@@ -5,9 +5,8 @@ import {Mongo} from 'meteor/mongo';
 Meteor.methods({
     'votes.insert': function (depute, loi, choix){
         console.log('from votes.insert', depute, loi, choix)
-        return Deputies.update(depute,
-           {$push: {votes: {[loi]:choix}}}
-        );
+        const selector = `depute.votes.${loi}`;
+            return Deputies.update(depute, { $push: { [selector]: choix } });
     },
 });
 
