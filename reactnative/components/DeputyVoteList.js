@@ -11,12 +11,12 @@ import {
 
 
 
-class deputyVoteList extends Component{
+class DeputyVoteList extends Component{
 
 
    render(){
     const {deputies}= this.props; // the list is here
-    const { navigate } = this.props.navigation; // this works?yes
+    //const { navigate } = this.props.navigation; // this works?yes
     
 
     return(
@@ -40,5 +40,5 @@ export default createContainer(params=>{
   return{
     deputies: Meteor.collection('deputies').find(),
 };
-},deputyVoteList);
+},DeputyVoteList);
 

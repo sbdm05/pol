@@ -10,7 +10,7 @@ import SignIn from '../components/SignIn';
 import SignOut from '../components/SignOut';
 import CircoFinder from '../components/CircoFinder';
 import Flat_List from '../components/FlatList';
-import deputyVoteList from '../components/voteList';
+import DeputyVoteList from '../components/DeputyVoteList';
 
 
 
@@ -29,9 +29,9 @@ class StackComponent extends Component{
         Spinner: {screen: Spinner, navigationOptions: {title:'My Profile'}},
         FindCirco : {screen: CircoFinder, navigationOptions: {title: 'Quelle est votre circonscription ?'}},
         AuthScreen: {screen: authUser, navigationOptions: {title: 'Welcome'}},
-        deputyVoteList:{screen: deputyVoteList, navigationOptions:{title:'list des votes'}}
+        DeputyVoteList:{screen: DeputyVoteList, navigationOptions:{title:'liste des votes'}}
       },{
-      initialRouteName: 'deputyVoteList'
+      initialRouteName: 'Home'
       });
 
     return(
