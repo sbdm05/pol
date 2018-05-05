@@ -21,7 +21,7 @@ class DeputyList extends Component{
 
   render(){
   //props.deputies=> an array of deputies object
-  console.log(this.props.law, 'from deputy list')
+  //console.log(this.props.law, 'from deputy list')
       return(
         <div>
           <div className="deputy-list">

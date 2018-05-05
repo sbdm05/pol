@@ -50,18 +50,36 @@ class DeputyDetail extends Component {
     
 
     //meteor.call pour insert a new field
-    console.log(this.props.law._id, 'ID de la loi') //return the lawId
-    console.log(this.props.deputy._id, 'ID du député')//return the deputy 
+    //console.log(this.props.law._id, 'ID de la loi') //return the lawId
+    //console.log(this.props.deputy._id, 'ID du député')//return the deputy 
     const depute=this.props.deputy._id;
     const loi=this.props.law._id;
-    const choix= this.state.votes_value; 
-    console.log(choix, 'choix')
-    Meteor.call('votes.insert', depute,loi, choix)    
+    const choix= this.state.votes_value; //yes or no
+    let votes = this.props.deputy.depute.votes;
+
+    if(!votes) {
+      votes = [{[loi]: choix}]
+    } else {
+      
+      const filteredVotes = votes.filter(vote => {
+        //console.log(vote);
+        //console.log(Object.keys(vote).includes(loi))
+        return !Object.keys(vote).includes(loi)
+      });
+      //...destructuring=> to check
+      votes = [
+         ...filteredVotes,
+         {[loi]: choix}
+       ]
+    }
+    Meteor.call('setVote', depute, votes)    
   }
 
   render(){
+      
+    
     const{votes_value, isToggled}=this.state;
-    console.log(this.props.law, 'from rebder', votes_value)
+    //console.log(this.props.law, 'from rebder', votes_value)
           return(
             <div className="thumbnail">
               <div className="caption">
@@ -85,3 +103,4 @@ class DeputyDetail extends Component {
     
 
 export default DeputyDetail;
+
