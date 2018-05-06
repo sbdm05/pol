@@ -68,6 +68,10 @@ class DeputyProfile extends Component {
     Meteor.call("onSelectingAdeputy", id);
   };
 
+  renderVotesValue = () => {
+    return votes.map(({ title, value }) => <Text>{title}</Text>);
+  };
+
   render() {
     //console.log(Meteor.user().profile.selectedDeputy)
     const {
@@ -92,15 +96,16 @@ class DeputyProfile extends Component {
 
     //How to Return the votes only if not empty ?
     //How to Return this array in the view ?
-    const arrayOfTitleValue = votes.map(vote => {
-      const key = Object.keys(vote)[0];
-      const law = this.props.laws.find(({ _id }) => _id === key);
-      return {
-        title: law && law.title,
-        value: vote[key]
-      };
-    });
-    console.log({ arrayOfTitleValue });
+    const arrayOfTitleValue = votes
+      ? votes.map(vote => {
+          const key = Object.keys(vote)[0];
+          const law = this.props.laws.find(({ _id }) => _id === key);
+          return {
+            title: law && law.title,
+            value: vote[key]
+          };
+        })
+      : [];
 
     return (
       <View>
@@ -118,6 +123,14 @@ class DeputyProfile extends Component {
               Circonscription n°{num_circo} , {nom_circo}
             </Text>
             <Text>Profession : {profession}</Text>
+            {arrayOfTitleValue.map(({ title, value }) => {
+              console.log(title, value);
+              return (
+                <Text>
+                  {title}: {value}
+                </Text>
+              );
+            })}
           </View>
           <View
             style={{ flexDirection: "row", justifyContent: "space-around" }}
