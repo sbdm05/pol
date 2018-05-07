@@ -94,8 +94,6 @@ class DeputyProfile extends Component {
 
     console.log(votes, "LES VOTES");
 
-    //How to Return the votes only if not empty ?
-    //How to Return this array in the view ?
     const arrayOfTitleValue = votes
       ? votes.map(vote => {
           const key = Object.keys(vote)[0];
