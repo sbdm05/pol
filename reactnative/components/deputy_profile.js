@@ -92,7 +92,7 @@ class DeputyProfile extends Component {
 
     const navigation = this.props.navigation;
 
-    console.log(votes, "LES VOTES");
+    //console.log(votes, "LES VOTES");
 
     const arrayOfTitleValue = votes
       ? votes.map(vote => {

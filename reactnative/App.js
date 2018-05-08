@@ -6,12 +6,14 @@ import DeputyDetail from "./components/deputy_detail";
 import Flat_List from "./components/FlatList";
 import Spinner from "./components/spinner";
 import StackComponent from "./config/routes";
+import StackComponentForLaws from "./config/routes_secondary";
 import { TabNavigator, addNavigationHelpers } from "react-navigation";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import reducers from "./reducers";
 import ReduxThunk from "redux-thunk";
-import Laws_list from "./components/Laws_list";
+import Laws_List from "./components/Laws_list";
+import LawCard from "./components/Law_Card";
 
 export default class App extends React.Component {
   componentWillMount() {
@@ -20,10 +22,8 @@ export default class App extends React.Component {
 
   render() {
     const Tabs = TabNavigator({
-      List: { screen: StackComponent },
-      Lois: { screen: Laws_list }
-      //Spinner:{screen: Spinner, navigationOptions: {title: 'spinner'}},
-      //Profil: {screen: Spinner, navigationOptions:{title: 'Mon Profil'}}
+      Députés: { screen: StackComponent },
+      Lois: { screen: StackComponentForLaws }
     });
 
     //Créer le Store connecté avec ReduxThunk

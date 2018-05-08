@@ -11,6 +11,9 @@ import SignOut from "../components/SignOut";
 import CircoFinder from "../components/CircoFinder";
 import Flat_List from "../components/FlatList";
 import DeputyVoteList from "../components/DeputyVoteList";
+import Laws_List from "../components/Laws_list";
+import LawCard from "../components/Law_Card";
+import Test from "../components/test";
 
 class StackComponent extends Component {
   render() {
@@ -42,6 +45,18 @@ class StackComponent extends Component {
         DeputyVoteList: {
           screen: DeputyVoteList,
           navigationOptions: { title: "liste des votes" }
+        },
+        LawsList: {
+          screen: Laws_List,
+          navigationOptions: { title: "Loi" }
+        },
+        LawCard: {
+          screen: LawCard,
+          navigationOptions: { title: "Détail de la loi" }
+        },
+        Test: {
+          screen: Test,
+          navigationOptions: { title: "test" }
         }
       },
       {

@@ -30,13 +30,13 @@ class Flat_List extends Component {
 
   _handleResults(results) {
     this.setState({ data: results });
-    console.log({ data: results }, "dataresults");
+    //console.log({ data: results }, "dataresults");
   }
 
   _handleSearch(input) {
     // if any of nom, nom_circo or num_circo includes the search , return it//ok
     const filteredData = (this.props.deputies || []).filter(({ depute }) => {
-      console.log(depute);
+      //console.log(depute);
       if (!depute) return false;
       const { nom, nom_circo, num_circo } = depute;
       return (
@@ -45,7 +45,7 @@ class Flat_List extends Component {
         num_circo.toString().includes(input)
       );
     });
-    console.log(filteredData, "filtered data");
+    //console.log(filteredData, "filtered data");
 
     this.setState({ data: filteredData });
   }

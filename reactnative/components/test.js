@@ -1,22 +1,10 @@
-import React , {Component}from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import Meteor, {createContainer, MeteorListView} from 'react-native-meteor';
-import { List, ListItem} from 'react-native-elements';
-import DeputyDetail from './deputy_detail';
-import Tabs from '../config/routes.js'
+import React, { Component } from "react";
+import { StyleSheet, Text, View, ScrollView } from "react-native";
 
-
-class Test extends Component{
-
-  render(){
-
-    return(
-      <Text>
-        From Test
-      </Text>
-  );
-}
-
+class Test extends Component {
+  render() {
+    return <Text>From Test</Text>;
+  }
 }
 
 export default Test;

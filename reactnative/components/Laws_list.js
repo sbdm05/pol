@@ -11,6 +11,8 @@ import {
 import Meteor, { createContainer, MeteorListView } from "react-native-meteor";
 import { List, ListItem } from "react-native-elements";
 import LawDetail from "./Law_Detail";
+import LawCard from "./Law_Card";
+import Test from "./test";
 import SearchBar from "react-native-searchbar";
 import CircoFinder from "./CircoFinder";
 
@@ -24,12 +26,12 @@ class Laws_List extends Component {
     this.state = {
       data: [] // initiate state
     };
-    console.log(this.props.laws, "this.props.laws");
+    //console.log(this.props.laws, "this.props.laws");
   }
 
   _handleResults(results) {
     this.setState({ data: results });
-    console.log({ data: results }, "dataresults");
+    //console.log({ data: results }, "dataresults");
   }
 
   //   _handleSearch(input) {
@@ -51,7 +53,7 @@ class Laws_List extends Component {
 
   render() {
     let listitems = this.state.data;
-    console.log(listitems, "listitems");
+    //console.log(listitems, "listitems");
     return (
       <View>
         {
