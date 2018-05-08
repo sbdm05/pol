@@ -31,9 +31,11 @@ class LawCard extends Component {
     };
   }
 
-  _OnAgree = _id => {
+  async _OnAgree(_id) {
     //set New State
-    this.setState({ UserVote: "oui" });
+    await this.setState({ UserVote: "oui" }, () =>
+      console.log(this.state.UserVote, "new state")
+    );
     //Extract Info
     const loi = _id;
     const choix = this.state.UserVote;
@@ -41,7 +43,7 @@ class LawCard extends Component {
     console.log(loi, votes);
 
     if (!votes) {
-      console.log("from !votes", votes);
+      console.log("from !votes", votes, choix);
       votes = [{ [loi]: choix }];
     } else {
       console.log("from else");
@@ -51,8 +53,9 @@ class LawCard extends Component {
       votes = [...filteredVotes, { [loi]: choix }];
       console.log("votes", votes);
     }
-    Meteor.call("_OnAgree", votes);
-  };
+    Meteor.call("_OnAgree", votes, [loi]);
+    console.log("last consolelog", votes, [loi]);
+  }
 
   _OnDisagree = _id => {
     this.setState({ UserVote: "non" });
