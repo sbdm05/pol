@@ -55,10 +55,10 @@ Schema.User = new SimpleSchema({
     type: Schema.UserProfile,
     optional: true
   },
-  votes:{
-      type: Schema.UserProfile,
-      optional: true
-  }
+  votes: {
+    type: Array,
+    optional: true
+  },
   // Make sure this services field is in your schema if you're using any of the accounts packages
   services: {
     type: Object,

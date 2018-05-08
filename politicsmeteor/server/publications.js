@@ -36,7 +36,8 @@ Meteor.methods({
     });
   },
 
-  _OnAgree: function(_id, votes) {
+  _OnAgree: function(votes) {
+    console.log;
     Meteor.users.update(Meteor.userId(), {
       $set: {
         "votes.laws": votes
