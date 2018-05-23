@@ -1,5 +1,25 @@
 Schema = {};
 
+// votes = {
+//     jhhgjhgdgf: 'oui',
+//     jkgfjggfhj: 'non',
+//     jgfhjfgkjfgjfg: 'oui'
+// };
+
+// Meteor.user().profile.votes
+
+// // laws.findOne({_id: key }).title;
+
+// Object.keys(votes).map((key, index) => {
+//     const { title } = laws.findOne({_id: key });
+
+//     return (
+//         <Text key={index}>
+//             {title}: {votes[key]}
+//         </Text>
+//     );
+// });
+
 //Define UserProfile Schema
 Schema.UserProfile = new SimpleShema({
   selectedDeputy: {
@@ -7,7 +27,7 @@ Schema.UserProfile = new SimpleShema({
     defaultValue: "",
     optional: true
   },
-  laws: {
+  votes: {
     type: Array,
     defaultValue: [],
     optional: true
@@ -53,10 +73,6 @@ Schema.User = new SimpleSchema({
   },
   profile: {
     type: Schema.UserProfile,
-    optional: true
-  },
-  votes: {
-    type: Array,
     optional: true
   },
   // Make sure this services field is in your schema if you're using any of the accounts packages

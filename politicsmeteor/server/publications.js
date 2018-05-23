@@ -19,6 +19,14 @@ Meteor.publish("selectedDeputy", () => {
   return Deputies.findOne(Meteor.user().profile.selectedDeputy);
 });
 
+Meteor.publish("users", () => {
+  //if (!this.userId) return null;
+  const decision = {
+    fields: { votes: 1 }
+  };
+  return Meteor.users.find(decision);
+});
+
 Meteor.publish("laws", () => {
   return Laws.find({});
 });
@@ -37,10 +45,14 @@ Meteor.methods({
   },
 
   _OnAgree: function(votes) {
-    console.log;
+    // const votes = {
+    //   ...Meteor.users().findOne({ _id: Meteor.userId() }).profile.votes,
+    //   ...vote
+    // };
+
     Meteor.users.update(Meteor.userId(), {
       $set: {
-        "votes.laws": votes
+        "profile.votes": votes
       }
     });
   }

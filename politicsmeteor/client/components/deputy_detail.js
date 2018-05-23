@@ -60,6 +60,7 @@ class DeputyDetail extends Component {
     const loi = this.props.law._id;
     const choix = this.state.votes_value; //yes or no
     let votes = this.props.deputy.depute.votes;
+    console.log(votes, "votes");
 
     if (!votes) {
       votes = [{ [loi]: choix }];
