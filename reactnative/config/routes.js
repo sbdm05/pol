@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 import Deputies_List from "../components/deputies_list";
 import DeputyDetail from "../components/deputy_detail";
 import DeputyProfile from "../components/deputy_profile";
-import Spinner from "../components/spinner";
+import UserProfile from "../components/UserProfile";
 import authUser from "../components/authUser";
 import SignIn from "../components/SignIn";
 import SignOut from "../components/SignOut";
@@ -30,8 +30,8 @@ class StackComponent extends Component {
           screen: DeputyProfile,
           navigationOptions: { title: "Deputy Profile" }
         },
-        Spinner: {
-          screen: Spinner,
+        UserProfile: {
+          screen: UserProfile,
           navigationOptions: { title: "My Profile" }
         },
         FindCirco: {
@@ -48,7 +48,7 @@ class StackComponent extends Component {
         },
         LawsList: {
           screen: Laws_List,
-          navigationOptions: { title: "Loi" }
+          navigationOptions: { title: "Laws" }
         },
         LawCard: {
           screen: LawCard,

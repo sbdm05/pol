@@ -4,7 +4,7 @@ import Meteor from "react-native-meteor";
 import Deputies_List from "./components/deputies_list";
 import DeputyDetail from "./components/deputy_detail";
 import Flat_List from "./components/FlatList";
-import Spinner from "./components/spinner";
+import UserProfile from "./components/UserProfile";
 import StackComponent from "./config/routes";
 import StackComponentForLaws from "./config/routes_secondary";
 import { TabNavigator, addNavigationHelpers } from "react-navigation";
@@ -23,7 +23,8 @@ export default class App extends React.Component {
   render() {
     const Tabs = TabNavigator({
       Députés: { screen: StackComponent },
-      Lois: { screen: StackComponentForLaws }
+      Lois: { screen: StackComponentForLaws },
+      Profile: { screen: UserProfile }
     });
 
     //Créer le Store connecté avec ReduxThunk

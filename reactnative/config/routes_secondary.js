@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 import Deputies_List from "../components/deputies_list";
 import DeputyDetail from "../components/deputy_detail";
 import DeputyProfile from "../components/deputy_profile";
-import Spinner from "../components/spinner";
+import UserProfile from "../components/UserProfile";
 import authUser from "../components/authUser";
 import SignIn from "../components/SignIn";
 import SignOut from "../components/SignOut";

@@ -27,15 +27,37 @@ class LawCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      UserVote: "non"
+      UserVote: "Pas de Vote"
     };
   }
 
   async _OnAgree(_id) {
     //set New State
-    await this.setState({ UserVote: "oui" }, () =>
-      console.log(this.state.UserVote, "new state")
-    );
+    await this.setState({ UserVote: "oui" });
+    //Extract Info
+    const loi = _id;
+    const choix = this.state.UserVote;
+    let votes = Meteor.user().profile.votes; // 1 ) does not return the votes, how to access the field ?
+    console.log(loi, votes, "loi et votes");
+
+    if (!votes) {
+      console.log("from !votes", votes, choix);
+      votes = [{ [loi]: choix }];
+    } else {
+      //console.log("from else");
+      const filteredVotes = votes.filter(vote => {
+        return !Object.keys(vote).includes(loi);
+      });
+      votes = [...filteredVotes, { [loi]: choix }];
+      //console.log("votes", votes);
+    }
+    Meteor.call("_OnAgree", votes);
+    console.log("last consolelog", votes);
+  }
+
+  async _OnDisagree(_id) {
+    //set New State
+    await this.setState({ UserVote: "non" });
     //Extract Info
     const loi = _id;
     const choix = this.state.UserVote;
@@ -43,32 +65,25 @@ class LawCard extends Component {
     console.log(loi, votes);
 
     if (!votes) {
-      console.log("from !votes", votes, choix);
+      //console.log("from !votes", votes, choix);
       votes = [{ [loi]: choix }];
     } else {
-      console.log("from else");
+      //console.log("from else");
       const filteredVotes = votes.filter(vote => {
         return !Object.keys(vote).includes(loi);
       });
       votes = [...filteredVotes, { [loi]: choix }];
-      console.log("votes", votes);
+      //console.log("votes", votes);
     }
-    Meteor.call("_OnAgree", votes, [loi]);
-    console.log("last consolelog", votes, [loi]);
+    Meteor.call("_OnDisagree", votes, [loi]);
+    //console.log("last consolelog", votes, [loi]);
   }
-
-  _OnDisagree = _id => {
-    this.setState({ UserVote: "non" });
-    //console.log(this.state.UserVote);
-    //console.log("from _OnDisagree", _id);
-    Meteor.call("_OnDisagree", _id);
-  };
 
   render() {
     const { title, abstract, _id } = this.props.navigation.state.params;
 
     const navigation = this.props.navigation;
-    //console.log(this.state.agree);
+    //console.log(this.state.UserVote);
     return (
       <View>
         <Card>
@@ -79,8 +94,8 @@ class LawCard extends Component {
             <Text>{abstract}</Text>
           </View>
           <View style={{ flexDirection: "row" }}>
-            <Button title="D'accord" onPress={() => this._OnAgree(_id)} />
-            <Button title="Pas D'accord" />
+            <Button title="Yes" onPress={() => this._OnAgree(_id)} />
+            <Button title="No" onPress={() => this._OnDisagree(_id)} />
           </View>
         </Card>
       </View>
@@ -94,3 +109,9 @@ export default createContainer(params => {
     laws: Meteor.collection("laws").find({})
   };
 }, LawCard);
+
+// Should I create a publication for votes array ?
+// Can I have multiple subscription within one createContainer ?
+// Tried to create and pub UserVotes + sub but does not render
+// How to store votes so it's "easy" to retrieve the title
+//=> right now, only saving the _id into User Collection: better embedded doc ?

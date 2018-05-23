@@ -22,7 +22,7 @@ import {
 } from "react-native-elements";
 import DeputyDetail from "./deputy_detail";
 import DeputyVoteList from "./DeputyVoteList";
-import Spinner from "./spinner";
+import UserProfile from "./UserProfile";
 import Tabs from "../config/routes.js";
 import Communications from "react-native-communications";
 //import {selectedDeputy} from '../actions';
@@ -121,10 +121,10 @@ class DeputyProfile extends Component {
               Circonscription n°{num_circo} , {nom_circo}
             </Text>
             <Text>Profession : {profession}</Text>
-            {arrayOfTitleValue.map(({ title, value }) => {
-              console.log(title, value);
+            {arrayOfTitleValue.map(({ title, value }, i) => {
+              //console.log(title, value, i, "index");
               return (
-                <Text>
+                <Text key={i}>
                   {title}: {value}
                 </Text>
               );
@@ -150,13 +150,7 @@ class DeputyProfile extends Component {
           <Text>{collaborateurs && collaborateurs[0].collaborateur}</Text>
           <Text>{emails.map(e => <Text>{e.email}</Text>)}</Text>
           <Button
-            title="My Profile"
-            onPress={() =>
-              navigation.navigate("Spinner", { ...this.props.deputy })
-            }
-          />
-          <Button
-            title="Select that deputy"
+            title="Choisir ce député"
             onPress={() => this._OnSelectDeputy(id)}
           />
         </Card>
