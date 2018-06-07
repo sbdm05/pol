@@ -5,8 +5,8 @@ Slingshot.fileRestrictions("LawPic", {
 
 Slingshot.createDirective("LawPic", Slingshot.S3Storage, {
   bucket: "appolitique",
-  AWSAccessKeyId: "AKIAIM3P6OYZMNBLLQXA",
-  AWSSecretAccessKey: "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",
+  AWSAccessKeyId: "ggg",
+  AWSSecretAccessKey: "gggg",
   region: "eu-west-3",
   acl: "public-read",
 
