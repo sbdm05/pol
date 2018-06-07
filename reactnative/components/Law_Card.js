@@ -9,7 +9,8 @@ import {
   Image,
   WebView,
   Linking,
-  ListView
+  ListView,
+  Switch
 } from "react-native";
 import Meteor, { createContainer, MeteorListView } from "react-native-meteor";
 import {
@@ -27,13 +28,71 @@ class LawCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      UserVote: "Pas de Vote"
+      UserVote: "Pas de Vote",
+      SwitchIsOn: false
     };
+  }
+
+  //CallBack for Switch Button
+  onSwitchChange(_id) {
+    const { SwitchIsOn } = this.state;
+    switch (this.state.SwitchIsOn) {
+      case false:
+        return (
+          <TouchableHighlight onClick={this._OnAgree(_id)}>
+            {this.setState({ SwitchIsOn: true })}
+          </TouchableHighlight>
+        );
+      case true:
+        return (
+          <TouchableHighlight onClick={this._OnDisagree(_id)}>
+            {this.setState({ SwitchIsOn: false })}
+          </TouchableHighlight>
+        );
+    }
   }
 
   async _OnAgree(_id) {
     //set New State
     await this.setState({ UserVote: "oui" });
+    //Extract Info
+    const loi = _id;
+    const choix = this.state.UserVote;
+    let votes = Meteor.user().profile.votes;
+
+    //console.log(loi, votes, "loi et votes");
+    //console.log(Object.values(votes), "object values");
+
+    if (!votes) {
+      //console.log("from !votes", votes, choix);
+      votes = [{ [loi]: choix }];
+    } else {
+      //filter votes so that it excludes the vote that includes the loi (lawId)
+      const filteredVotes = votes.filter(vote => {
+        return !Object.keys(vote).includes(loi);
+      });
+      votes = [...filteredVotes, { [loi]: choix }];
+
+      //Filter to only retrieve the law object that matches
+      const thelawId = votes.filter(vote => {
+        return Object.keys(vote).includes(loi);
+      });
+
+      const value = thelawId.loi;
+
+      console.log(value, "test");
+    }
+    //Save the vote in the user's profile
+    Meteor.call("_OnAgree", votes);
+    //Increment vote_yes by 1 in the law object
+    Meteor.call("vote_agree", loi);
+    console.log("choix", choix);
+    //console.log(Object.values(votes), "votes");
+  }
+
+  async _OnDisagree(_id) {
+    //set New State
+    await this.setState({ UserVote: "non" });
     //Extract Info
     const loi = _id;
     const choix = this.state.UserVote;
@@ -51,54 +110,52 @@ class LawCard extends Component {
       votes = [...filteredVotes, { [loi]: choix }];
       //console.log("votes", votes);
     }
-    Meteor.call("_OnAgree", votes);
-    console.log("last consolelog", votes);
-  }
-
-  async _OnDisagree(_id) {
-    //set New State
-    await this.setState({ UserVote: "non" });
-    //Extract Info
-    const loi = _id;
-    const choix = this.state.UserVote;
-    let votes = Meteor.userId().votes;
-    console.log(loi, votes);
-
-    if (!votes) {
-      //console.log("from !votes", votes, choix);
-      votes = [{ [loi]: choix }];
-    } else {
-      //console.log("from else");
-      const filteredVotes = votes.filter(vote => {
-        return !Object.keys(vote).includes(loi);
-      });
-      votes = [...filteredVotes, { [loi]: choix }];
-      //console.log("votes", votes);
-    }
-    Meteor.call("_OnDisagree", votes, [loi]);
-    //console.log("last consolelog", votes, [loi]);
+    //Save the vote in the user's profile
+    Meteor.call("_OnDisagree", votes);
+    //Increment vote_no by 1
+    Meteor.call("vote_disagree", loi);
+    console.log("value de la loi", choix);
   }
 
   render() {
-    const { title, abstract, _id } = this.props.navigation.state.params;
+    const { title, abstract, _id, image } = this.props.navigation.state.params;
 
     const navigation = this.props.navigation;
     //console.log(this.state.UserVote);
     return (
-      <View>
-        <Card>
-          <View
-            style={{ flexDirection: "column", justifyContent: "space-around" }}
+      <Card image={{ uri: image }}>
+        <View
+          style={{ flexDirection: "column", justifyContent: "space-around" }}
+        >
+          <Text
+            style={{
+              marginBottom: 10,
+              fontWeight: "bold",
+              fontSize: 30
+            }}
           >
-            <Text>{title}</Text>
-            <Text>{abstract}</Text>
-          </View>
-          <View style={{ flexDirection: "row" }}>
-            <Button title="Yes" onPress={() => this._OnAgree(_id)} />
-            <Button title="No" onPress={() => this._OnDisagree(_id)} />
-          </View>
-        </Card>
-      </View>
+            {title}
+          </Text>
+          <Text style={{ marginBottom: 10 }}>{abstract}</Text>
+        </View>
+        <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
+          {/* <Switch
+            onValueChange={value => this.onSwitchChange(_id)}
+            value={this.state.SwitchIsOn}
+            ontintColor="#FF0000"
+          /> */}
+          <Button
+            backgroundColor="#008000"
+            title="POUR"
+            onPress={() => this._OnAgree(_id)}
+          />
+          <Button
+            backgroundColor="#FF0000"
+            title="CONTRE"
+            onPress={() => this._OnDisagree(_id)}
+          />
+        </View>
+      </Card>
     );
   }
 }
@@ -109,9 +166,3 @@ export default createContainer(params => {
     laws: Meteor.collection("laws").find({})
   };
 }, LawCard);
-
-// Should I create a publication for votes array ?
-// Can I have multiple subscription within one createContainer ?
-// Tried to create and pub UserVotes + sub but does not render
-// How to store votes so it's "easy" to retrieve the title
-//=> right now, only saving the _id into User Collection: better embedded doc ?

@@ -23,17 +23,34 @@ import Test from "./test";
 
 class LawDetail extends Component {
   render() {
-    const { title, abstract, _id } = this.props.law;
+    const { title, abstract, _id, image } = this.props.law;
     const navigation = this.props.navigation;
 
     return (
-      <ListItem
-        roundAvatar
-        title={title}
-        subtitle={abstract}
-        containerStyle={{ borderBottomWidth: 0.5 }}
-        onPress={() => navigation.navigate("LawCard", { ...this.props.law })}
-      />
+      <Card image={{ uri: image }}>
+        <Text style={{ marginBottom: 10 }}>{title}</Text>
+        <Button
+          // icon={{ name: "code" }}
+          backgroundColor="#03A9F4"
+          buttonStyle={{
+            borderRadius: 0,
+            marginLeft: 0,
+            marginRight: 0,
+            marginBottom: 0
+          }}
+          onPress={() => navigation.navigate("LawCard", { ...this.props.law })}
+          title="JE VOTE"
+        />
+      </Card>
+
+      // <ListItem
+      //   roundAvatar
+      //   avatar={{ uri: image }}
+      //   title={title}
+      //   subtitle={abstract}
+      //   containerStyle={{ borderBottomWidth: 0.5 }}
+      //   onPress={() => navigation.navigate("LawCard", { ...this.props.law })}
+      // />
     );
   }
 }

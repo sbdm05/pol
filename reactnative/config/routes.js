@@ -24,7 +24,7 @@ class StackComponent extends Component {
         SignOut: { screen: SignOut, navigationOptions: { title: "SignOut" } },
         Home: {
           screen: Flat_List,
-          navigationOptions: { title: "Choisissez votre député" }
+          navigationOptions: { title: "Trouvez un député" }
         },
         DeputyProfile: {
           screen: DeputyProfile,
@@ -40,7 +40,7 @@ class StackComponent extends Component {
         },
         AuthScreen: {
           screen: authUser,
-          navigationOptions: { title: "Welcome" }
+          navigationOptions: { title: "Identifiez-vous" }
         },
         DeputyVoteList: {
           screen: DeputyVoteList,
@@ -60,7 +60,7 @@ class StackComponent extends Component {
         }
       },
       {
-        initialRouteName: "Home"
+        initialRouteName: "AuthScreen"
       }
     );
 

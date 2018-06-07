@@ -3,15 +3,15 @@ import { View, ActivityIndicator, Text } from "react-native";
 import { connect } from "react-redux";
 import Meteor, { createContainer } from "react-native-meteor";
 import DeputyProfile from "./deputy_profile";
+import LawCard from "./Law_Card";
 import {
   List,
   ListItem,
   Card,
   SocialIcon,
-  Button
+  Button,
+  Badge
 } from "react-native-elements";
-//import { Tracker } from 'meteor/tracker';
-//import { Mongo } from 'meteor/mongo';
 
 class UserVotes extends Component {
   constructor(props) {
@@ -22,6 +22,7 @@ class UserVotes extends Component {
     //We use that line because Meteor takes some time to load the data, so it won't return an error
     if (!Meteor.user()) return null;
     const { votes } = Meteor.user().profile;
+    const navigation = this.props.navigation;
 
     // Access the key/value
     const arrayOfTitleValue = votes
@@ -41,9 +42,17 @@ class UserVotes extends Component {
           {arrayOfTitleValue.map(({ title, value }, i) => {
             //console.log(title, value, i, "index");
             return (
-              <Text key={i}>
-                {title}: {value}
-              </Text>
+              // <Text key={i}>
+              //   {title}: {value}
+              // </Text>
+              <ListItem
+                title={title}
+                badge={{ value: value }}
+                containerStyle={{ borderBottomWidth: 0.5 }}
+                onPress={() =>
+                  navigation.navigate("LawCard", { ...this.props.laws })
+                }
+              />
             );
           })}
         </Card>

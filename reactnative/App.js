@@ -7,6 +7,7 @@ import Flat_List from "./components/FlatList";
 import UserProfile from "./components/UserProfile";
 import StackComponent from "./config/routes";
 import StackComponentForLaws from "./config/routes_secondary";
+import StackComponentforProfile from "./config/routes_profile";
 import { TabNavigator, addNavigationHelpers } from "react-navigation";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
@@ -24,7 +25,7 @@ export default class App extends React.Component {
     const Tabs = TabNavigator({
       Députés: { screen: StackComponent },
       Lois: { screen: StackComponentForLaws },
-      Profile: { screen: UserProfile }
+      Profile: { screen: StackComponentforProfile }
     });
 
     //Créer le Store connecté avec ReduxThunk

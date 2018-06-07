@@ -22,10 +22,6 @@ class UserProfile extends Component {
   render() {
     const { nom, groupe_sigle, nom_circo, picture, num_circo, id } =
       this.props.navigation.state.params || {};
-    // get(this.props, 'navigation.state.params', {}) => import get from lodash
-    //const navigation = this.props.navigation;
-    //console.log ({props.navigation})
-    //console.log(Meteor.user().profile.selectedDeputy)
 
     //This update into the component
     const number = Meteor.user() && Meteor.user().profile.selectedDeputy;
@@ -36,10 +32,13 @@ class UserProfile extends Component {
 
     return (
       <View>
-        <Text>Your email is {user_email}</Text>
-        <Text>Your deputy is : {depute && depute.nom}</Text>
-        <Text>Your deputy group is : {depute && depute.groupe_sigle} </Text>
-        <Text>The deputy Id gets updated : {number} </Text>
+        <Card title="MES INFOS">
+          <Text>Votre e-mail : {user_email}</Text>
+          <Text>Votre député est {depute && depute.nom}</Text>
+          <Text>
+            Votre député fait partie de : {depute && depute.groupe_sigle}{" "}
+          </Text>
+        </Card>
         <UserVotes />
       </View>
     );
@@ -47,10 +46,11 @@ class UserProfile extends Component {
 }
 
 const styles = {
-  spinnerStyle: {
+  cardStyle: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    color: "blue"
   }
 };
 

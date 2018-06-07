@@ -9,7 +9,7 @@ import {
   WebView
 } from "react-native";
 import Meteor, { createContainer, MeteorListView } from "react-native-meteor";
-import { List, ListItem } from "react-native-elements";
+import { List, ListItem, Card } from "react-native-elements";
 import LawDetail from "./Law_Detail";
 import LawCard from "./Law_Card";
 import Test from "./test";
@@ -52,6 +52,7 @@ class Laws_List extends Component {
   }
 
   render() {
+    console.log(Meteor.user());
     let listitems = this.state.data;
     //console.log(listitems, "listitems");
     return (
