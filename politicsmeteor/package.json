@@ -24,5 +24,8 @@
     "simpl-schema": "^1.4.1",
     "uniforms": "^1.23.0",
     "uniforms-semantic": "^1.23.0"
+  },
+  "engines": {
+    "node": "8.9.3"
   }
 }
