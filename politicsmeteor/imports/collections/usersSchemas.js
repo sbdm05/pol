@@ -1,25 +1,5 @@
 Schema = {};
 
-// votes = {
-//     jhhgjhgdgf: 'oui',
-//     jkgfjggfhj: 'non',
-//     jgfhjfgkjfgjfg: 'oui'
-// };
-
-// Meteor.user().profile.votes
-
-// // laws.findOne({_id: key }).title;
-
-// Object.keys(votes).map((key, index) => {
-//     const { title } = laws.findOne({_id: key });
-
-//     return (
-//         <Text key={index}>
-//             {title}: {votes[key]}
-//         </Text>
-//     );
-// });
-
 //Define UserProfile Schema
 Schema.UserProfile = new SimpleShema({
   selectedDeputy: {

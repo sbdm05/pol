@@ -1,6 +1,5 @@
 //Declare our collection
 import { Mongo } from "meteor/mongo";
-//import deputy_detail from '../../client/components/deputy_detail';
 
 Meteor.methods({
   setVote: function(depute, votes) {

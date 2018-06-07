@@ -1,9 +1,8 @@
 import { Meteor } from "meteor/meteor";
 import { Deputies } from "../imports/collections/deputies.js";
 import { Laws } from "../imports/collections/laws.js";
-//import {usersShemas} from '../imports/collections/usersShemas.js';// not sure about the name of the file to import, make the app crash
 
-//console.log(Deputies.find({}).fetch(), "this file runs")
+//PUBLICATIONS//////////////////////////////////
 
 //Return all the deputies
 Meteor.publish("deputies", () => {
@@ -15,25 +14,20 @@ Meteor.publish("deputies_20", function(per_page) {
   return Deputies.find({}, { limit: per_page });
 });
 
+//Return the selected deputy
 Meteor.publish("selectedDeputy", () => {
   return Deputies.findOne(Meteor.user().profile.selectedDeputy);
-});
-
-Meteor.publish("users", () => {
-  //if (!this.userId) return null;
-  const decision = {
-    fields: { votes: 1 }
-  };
-  return Meteor.users.find(decision);
 });
 
 Meteor.publish("laws", () => {
   return Laws.find({});
 });
 
+//METHODS///////////////////////////////////
+
 Meteor.methods({
   onSendResetPasswordEmail: function() {
-    console.log("from onLostPassword method"); //It returns the console.log
+    console.log("from onLostPassword method");
   },
 
   onSelectingAdeputy: function(deputyId) {
@@ -45,11 +39,14 @@ Meteor.methods({
   },
 
   _OnAgree: function(votes) {
-    // const votes = {
-    //   ...Meteor.users().findOne({ _id: Meteor.userId() }).profile.votes,
-    //   ...vote
-    // };
+    Meteor.users.update(Meteor.userId(), {
+      $set: {
+        "profile.votes": votes
+      }
+    });
+  },
 
+  _OnDisagree: function(votes) {
     Meteor.users.update(Meteor.userId(), {
       $set: {
         "profile.votes": votes

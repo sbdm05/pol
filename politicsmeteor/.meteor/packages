@@ -26,3 +26,5 @@ react
 react-meteor-data
 react-runtime
 twbs:bootstrap@3.3.6
+ostrio:files
+edgee:slingshot
