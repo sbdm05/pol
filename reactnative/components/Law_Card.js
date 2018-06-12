@@ -10,7 +10,8 @@ import {
   WebView,
   Linking,
   ListView,
-  Switch
+  Switch,
+  Modal
 } from "react-native";
 import Meteor, { createContainer, MeteorListView } from "react-native-meteor";
 import {
@@ -18,7 +19,8 @@ import {
   ListItem,
   Card,
   SocialIcon,
-  Button
+  Button,
+  Icon
 } from "react-native-elements";
 import LawDetail from "./Law_Detail";
 
@@ -29,7 +31,8 @@ class LawCard extends Component {
     super(props);
     this.state = {
       UserVote: "Pas de Vote",
-      SwitchIsOn: false
+      SwitchIsOn: false,
+      modalVisible: false
     };
   }
 
@@ -54,7 +57,7 @@ class LawCard extends Component {
 
   updateLaw = (loi, newValue) => {
     let votes = Meteor.user().profile.votes;
-
+    this.setState({ modalVisible: true });
     if (!votes) {
       votes = [{ [loi]: newValue }];
     } else {
@@ -78,44 +81,123 @@ class LawCard extends Component {
   };
 
   render() {
-    const { title, abstract, _id, image } = this.props.navigation.state.params;
+    const {
+      title,
+      abstract,
+      _id,
+      image,
+      vote_yes,
+      vote_no
+    } = this.props.navigation.state.params;
+
+    const upvotesperc = Math.round(100 * (vote_yes / (vote_yes + vote_no)));
+    const downvotesperc = Math.round(100 * (vote_no / (vote_yes + vote_no)));
 
     const navigation = this.props.navigation;
-    //console.log(this.state.UserVote);
+
     return (
-      <Card image={{ uri: image }}>
-        <View
-          style={{ flexDirection: "column", justifyContent: "space-around" }}
+      <View style={{ marginTop: 22 }}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={this.state.modalVisible}
+          onRequestClose={() => {
+            alert("Modal has been closed.");
+          }}
         >
-          <Text
+          <View
             style={{
-              marginBottom: 10,
-              fontWeight: "bold",
-              fontSize: 30
+              marginTop: 22,
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center"
             }}
           >
-            {title}
-          </Text>
-          <Text style={{ marginBottom: 10 }}>{abstract}</Text>
-        </View>
-        <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
-          {/* <Switch
+            <View>
+              <Text
+                style={{
+                  color: "white",
+                  fontWeight: "bold",
+                  fontSize: "35",
+                  textAlign: "center"
+                }}
+              >
+                Vous venez de voter !
+              </Text>
+
+              <TouchableHighlight
+                onPress={() => {
+                  this.setState({ modalVisible: false });
+                }}
+              >
+                <Text
+                  style={{ color: "white", fontSize: 20, textAlign: "center" }}
+                >
+                  FERMER X
+                </Text>
+              </TouchableHighlight>
+            </View>
+          </View>
+        </Modal>
+
+        <Card image={{ uri: image }}>
+          <View
+            style={{ flexDirection: "column", justifyContent: "space-around" }}
+          >
+            <Text
+              style={{
+                marginBottom: 10,
+                fontWeight: "bold",
+                fontSize: 30
+              }}
+            >
+              {title}
+            </Text>
+            <Text style={{ marginBottom: 10 }}>{abstract}</Text>
+          </View>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-around" }}
+          >
+            {/* <Switch
             onValueChange={value => this.onSwitchChange(_id)}
             value={this.state.SwitchIsOn}
             ontintColor="#FF0000"
           /> */}
-          <Button
-            backgroundColor="#008000"
-            title="POUR"
-            onPress={() => this.updateLaw(_id, "oui")}
-          />
-          <Button
-            backgroundColor="#FF0000"
-            title="CONTRE"
-            onPress={() => this.updateLaw(_id, "non")}
-          />
-        </View>
-      </Card>
+            <Button
+              backgroundColor="#008000"
+              title="POUR"
+              onPress={() => this.updateLaw(_id, "oui")}
+            />
+            <Button
+              backgroundColor="#FF0000"
+              title="CONTRE"
+              onPress={() => this.updateLaw(_id, "non")}
+            />
+          </View>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-around" }}
+          >
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-around" }}
+            >
+              <Text style={{ paddingTop: 7 }}>{upvotesperc}%</Text>
+              <Icon type="material-community" name="thumb-up" color="#008000" />
+            </View>
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-around" }}
+            >
+              <Text style={{ paddingTop: 7 }}>{downvotesperc}%</Text>
+              <Icon
+                type="material-community"
+                name="thumb-down"
+                color="#FF0000"
+                style={{ paddingTop: 7 }}
+              />
+            </View>
+          </View>
+        </Card>
+      </View>
     );
   }
 }

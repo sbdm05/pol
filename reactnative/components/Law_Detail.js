@@ -28,8 +28,10 @@ class LawDetail extends Component {
   };
 
   render() {
-    const { title, abstract, _id, image } = this.props.law;
+    const { title, abstract, _id, image, vote_yes, vote_no } = this.props.law;
     const navigation = this.props.navigation;
+    const upvotesperc = Math.round(100 * (vote_yes / (vote_yes + vote_no)));
+    const downvotesperc = Math.round(100 * (vote_no / (vote_yes + vote_no)));
 
     return (
       <Card image={{ uri: image || this.state.defaultImage }}>
@@ -46,6 +48,25 @@ class LawDetail extends Component {
           onPress={() => navigation.navigate("LawCard", { ...this.props.law })}
           title="JE VOTE"
         />
+        <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-around" }}
+          >
+            <Text style={{ paddingTop: 7 }}>{upvotesperc}%</Text>
+            <Icon type="material-community" name="thumb-up" color="#008000" />
+          </View>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-around" }}
+          >
+            <Text style={{ paddingTop: 7 }}>{downvotesperc}%</Text>
+            <Icon
+              type="material-community"
+              name="thumb-down"
+              color="#FF0000"
+              style={{ paddingTop: 7 }}
+            />
+          </View>
+        </View>
       </Card>
 
       // <ListItem
