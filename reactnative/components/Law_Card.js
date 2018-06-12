@@ -52,70 +52,30 @@ class LawCard extends Component {
     }
   }
 
-  async _OnAgree(_id) {
-    //set New State
-    await this.setState({ UserVote: "oui" });
-    //Extract Info
-    const loi = _id;
-    const choix = this.state.UserVote;
+  updateLaw = (loi, newValue) => {
     let votes = Meteor.user().profile.votes;
 
-    //console.log(loi, votes, "loi et votes");
-    //console.log(Object.values(votes), "object values");
-
     if (!votes) {
-      //console.log("from !votes", votes, choix);
-      votes = [{ [loi]: choix }];
+      votes = [{ [loi]: newValue }];
     } else {
       //filter votes so that it excludes the vote that includes the loi (lawId)
       const filteredVotes = votes.filter(vote => {
         return !Object.keys(vote).includes(loi);
       });
-      votes = [...filteredVotes, { [loi]: choix }];
-
-      //Filter to only retrieve the law object that matches
-      const thelawId = votes.filter(vote => {
-        return Object.keys(vote).includes(loi);
-      });
-
-      const value = thelawId.loi;
-
-      console.log(value, "test");
+      votes = [...filteredVotes, { [loi]: newValue }];
     }
-    //Save the vote in the user's profile
-    Meteor.call("_OnAgree", votes);
-    //Increment vote_yes by 1 in the law object
-    Meteor.call("vote_agree", loi);
-    console.log("choix", choix);
-    //console.log(Object.values(votes), "votes");
-  }
 
-  async _OnDisagree(_id) {
-    //set New State
-    await this.setState({ UserVote: "non" });
-    //Extract Info
-    const loi = _id;
-    const choix = this.state.UserVote;
-    let votes = Meteor.user().profile.votes; // 1 ) does not return the votes, how to access the field ?
-    console.log(loi, votes, "loi et votes");
-
-    if (!votes) {
-      console.log("from !votes", votes, choix);
-      votes = [{ [loi]: choix }];
-    } else {
-      //console.log("from else");
-      const filteredVotes = votes.filter(vote => {
-        return !Object.keys(vote).includes(loi);
-      });
-      votes = [...filteredVotes, { [loi]: choix }];
-      //console.log("votes", votes);
-    }
     //Save the vote in the user's profile
-    Meteor.call("_OnDisagree", votes);
-    //Increment vote_no by 1
-    Meteor.call("vote_disagree", loi);
-    console.log("value de la loi", choix);
-  }
+    Meteor.call(newValue === "oui" ? "_OnAgree" : "_OnDisagree", votes);
+
+    const existingVote = Meteor.user().profile.votes.find(
+      vote => Object.keys(vote)[0] === loi
+    );
+
+    const existingVoteValue = existingVote && existingVote[loi];
+
+    Meteor.call("updateVotes", loi, newValue, existingVoteValue);
+  };
 
   render() {
     const { title, abstract, _id, image } = this.props.navigation.state.params;
@@ -147,12 +107,12 @@ class LawCard extends Component {
           <Button
             backgroundColor="#008000"
             title="POUR"
-            onPress={() => this._OnAgree(_id)}
+            onPress={() => this.updateLaw(_id, "oui")}
           />
           <Button
             backgroundColor="#FF0000"
             title="CONTRE"
-            onPress={() => this._OnDisagree(_id)}
+            onPress={() => this.updateLaw(_id, "non")}
           />
         </View>
       </Card>

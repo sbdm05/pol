@@ -22,12 +22,17 @@ import Test from "./test";
 //this component render one particular row in the list
 
 class LawDetail extends Component {
+  state = {
+    defaultImage:
+      "https://s3.eu-west-3.amazonaws.com/appolitique/images/1527586384012-Twitter-icon.png"
+  };
+
   render() {
     const { title, abstract, _id, image } = this.props.law;
     const navigation = this.props.navigation;
 
     return (
-      <Card image={{ uri: image }}>
+      <Card image={{ uri: image || this.state.defaultImage }}>
         <Text style={{ marginBottom: 10 }}>{title}</Text>
         <Button
           // icon={{ name: "code" }}

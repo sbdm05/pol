@@ -40,7 +40,10 @@ class StackComponent extends Component {
         },
         AuthScreen: {
           screen: authUser,
-          navigationOptions: { title: "Identifiez-vous" }
+          navigationOptions: {
+            title: "Identifiez-vous",
+            TabNavigator: { visible: false }
+          }
         },
         DeputyVoteList: {
           screen: DeputyVoteList,
@@ -60,7 +63,7 @@ class StackComponent extends Component {
         }
       },
       {
-        initialRouteName: "AuthScreen"
+        initialRouteName: "Home"
       }
     );
 

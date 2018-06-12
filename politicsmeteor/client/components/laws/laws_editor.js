@@ -29,62 +29,48 @@ class LawEditor extends Component {
       "https://s3.eu-west-3.amazonaws.com/appolitique/images/1527586384012-Twitter-icon.png"
   };
 
-  //Update Fields in the db + update state
-  handleSubmit(e, props) {
-    e.preventDefault();
-    //Access the law Object
-    const lawId = this.props.law;
+  uploadFile = file => {
+    const lawId = this.props.law._id;
+
     //Store the LawId into metaContext & send to AmazonS3
-    var metaContext = { lawId: lawId._id };
+    var metaContext = { lawId };
     var upload = new Slingshot.Upload("LawPic", metaContext);
     //render this conditional
-    console.log(upload, "upload");
-    upload.send(document.getElementById("uploadFile").files[0], function(
-      error,
-      downloadUrl
-    ) {
-      uploader.set();
 
+    upload.send(file, function(error, downloadUrl) {
       if (error) {
         alert(error);
       } else {
-        console.log("Success!");
-        console.log("uploaded file available here: " + downloadUrl);
-
-        Meteor.call(
-          "laws_image.update",
-          lawId,
-          titleLoi,
-          abstractLoi,
-          downloadUrl
-        );
+        Meteor.call("laws_image.update", lawId, downloadUrl);
       }
-      uploader.set(upload);
     });
+  };
 
-    //laws.update is not called
-    const titleLoi = e.target.titleLoi.value;
-    const abstractLoi = e.target.abstractLoi.value;
-    if (titleLoi) {
-      Meteor.call("laws.update", lawId, titleLoi, abstractLoi, downloadUrl);
+  //Update Fields in the db + update state
+  handleSubmit(e, props) {
+    e.preventDefault();
 
-      this.setState({
-        titre: titleLoi,
-        abstract: abstractLoi,
-        image:
-          "https://s3.eu-west-3.amazonaws.com/appolitique/images/1527586384012-Twitter-icon.png"
-      });
+    //Access the law Object
+    const lawId = this.props.law._id;
+
+    const file = document.getElementById("uploadFile").files[0];
+
+    if (file) {
+      this.uploadFile(file);
+    }
+
+    const { titre, abstract } = this.state;
+    if (titre) {
+      Meteor.call("laws.update", lawId, titre, abstract);
     }
   }
 
   //Take the new value and displays it
-  handleChange(e, props, value, input) {
+  handleChange = (key, value) => {
     this.setState({
-      titre: input.value,
-      abstract: input.value,
-      image: downloadUrl
+      [key]: value
     });
-  }
+  };
 
   render() {
     return (
@@ -95,7 +81,7 @@ class LawEditor extends Component {
           type="text"
           name="titleLoi"
           value={this.state.titre}
-          onChange={this.handleChange.bind(this)}
+          onChange={e => this.handleChange("titre", e.target.value)}
         />
         <label>Description</label>
         <input
@@ -103,23 +89,7 @@ class LawEditor extends Component {
           type="text"
           name="abstractLoi"
           value={this.state.abstract}
-          onChange={this.handleChange.bind(this)}
-        />
-        <label>Points positifs</label>
-        <input
-          className="form-control"
-          type="text"
-          name="abstractLoi"
-          value={this.state.abstract}
-          onChange={this.handleChange.bind(this)}
-        />
-        <label>Points négatifs</label>
-        <input
-          className="form-control"
-          type="text"
-          name="abstractLoi"
-          value={this.state.abstract}
-          onChange={this.handleChange.bind(this)}
+          onChange={e => this.handleChange("abstract", e.target.value)}
         />
 
         <img src={this.state.image} />
@@ -127,7 +97,7 @@ class LawEditor extends Component {
           type="file"
           className="uploadFile"
           id="uploadFile"
-          onChange={this.handleChange.bind(this)}
+          onChange={this.handleChange}
         />
 
         <button className="btn btn-primary">
