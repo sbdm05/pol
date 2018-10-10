@@ -3,12 +3,24 @@
 // Import the React library
 import React from "react";
 import ReactDOM from "react-dom";
-import { Router, Route, IndexRoute, browserHistory } from "react-router";
+/*import { Router, Route, IndexRoute, browserHistory, history } from "react-router";*/
+import {
+  BrowserRouter,
+  Route,
+  Link,
+  Router,
+  browserHistory,
+  History
+} from "react-router-dom";
+import history from "./components/history";
 import App from "./components/app";
 import { Laws } from "../imports/collections/laws";
 import LawsMain from "./components/laws/laws_main";
 import LawsList from "./components/laws/laws_list";
 import VotesMain from "./components/votes/votesMain";
+import data from "./data.json";
+
+console.log(data);
 
 // const lawlistcomponent = props => {
 //   console.log("test");
@@ -16,18 +28,23 @@ import VotesMain from "./components/votes/votesMain";
 // };
 
 const routes = (
-  <Router history={browserHistory}>
-    <Route path="/" component={App}>
-      <IndexRoute component={LawsList} />
+  <BrowserRouter>
+    {/* <Route exact path="/" component={App}> */}
+    {/* <Route component={LawsList} />
       <Route path="laws/:lawId" component={LawsMain} />
-      <Route path="votes/:lawId" component={VotesMain} />
-    </Route>
-  </Router>
+      <Route path="votes/:lawId" component={VotesMain} /> */}
+    {/* </Route> */}
+  </BrowserRouter>
 );
 
 //After Meteor loads in the browser, render my app to the DOM.
 Meteor.startup(() => {
-  ReactDOM.render(routes, document.querySelector(".container"));
+  ReactDOM.render(
+    <Router history={history}>
+      <App />
+    </Router>,
+    document.querySelector(".container")
+  );
 });
 
 //Passing props to Route but does not work
